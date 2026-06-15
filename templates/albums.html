@@ -3,11 +3,14 @@
     <h2>Alle albums</h2>
     <br>
     <br>
+    <ul class="list-group">
     {% for a in albums %}
-        <h3>Id: {{a.id}}</h3>
-        <h3>Title: {{a.title}}</h3>
-        <h3>Artist: {{a.artist}}</h3>
-        <a href="/albums/{{a.id}}">Se mere information</a>
-        <p><hr></p>
+        <li class="list-group-item">
+            <h3>Id: {{a.id}}</h3>
+            <h3>Title: {{a.title}}</h3>
+            <h3>Artist: {{a.artist}}</h3>
+            <a href="/albums/{{a.id}}">Se mere information</a>
+        </li>
     {% endfor %}
+    </ul>
 {% endblock %}
