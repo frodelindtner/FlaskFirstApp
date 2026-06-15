@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% if title %} <!-- JINJA2 -->
+            <title>{{title}}</title>
+        {% else %}
+            <title>Manglende title</title>
+        {% endif %}
+    </head>
+    <body>
+        <div>
+            <a href="/home">Velkomst side</a>
+            <a href="/about">En anden side</a>
+        </div>        
+
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>
