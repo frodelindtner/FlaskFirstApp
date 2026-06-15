@@ -1,0 +1,25 @@
+import unittest
+from album import Album
+
+class Testing(unittest.TestCase):
+    def test_create(self):
+        # Arrange
+        album_id = 12
+        album_title = 'testtitle'
+        # Act
+        a = Album(album_id, album_title, 'testartist', 'testreleaseyear')
+        result = a
+        # Assert
+        self.assertEqual(result.title, album_title)
+        self.assertEqual(result.id, album_id)
+
+    def test_repr_albut(self):
+        # Arrange
+        album_title = 'testtitle'
+        # Act
+        a = Album(12, album_title, 'testartist', 'testreleaseyear')
+        result = a.__repr__()
+        # Assert
+        self.assertEqual(album_title, result)      
+
+unittest.main()
