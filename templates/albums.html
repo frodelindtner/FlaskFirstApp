@@ -1,5 +1,12 @@
 {% extends 'layout.html' %}
 {% block content %}
     <h2>Alle albums</h2>
-    <p>Nu er du igang :-)</p>
+    <br>
+    <br>
+    {% for a in albums %}
+        <h3>Id: {{a.id}}</h3>
+        <h3>Title: {{a.title}}</h3>
+        <h3>Artist: {{a.artist}}</h3>
+        <p><hr></p>
+    {% endfor %}
 {% endblock %}
