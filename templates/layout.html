@@ -6,6 +6,7 @@
         {% else %}
             <title>Manglende title</title>
         {% endif %}
+        <link rel="stylesheet" href="/static/style.css">
     </head>
     <body>
         <div>
@@ -15,5 +16,7 @@
 
         {% block content %}
         {% endblock %}
+
+        <div style="height: 10px;" class="underbox">&nbsp;</div>
     </body>
 </html>
