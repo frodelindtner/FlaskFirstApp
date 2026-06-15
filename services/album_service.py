@@ -13,6 +13,13 @@ class Service:
         self.__storage.add_album(a)
         return a
     
+    def find_album_by_id(self, id):
+        for a in self.get_all_album():
+            if a.id == id:
+                return a
+        else:
+            return None
+    
 
 
 # -------------------------------------------------------

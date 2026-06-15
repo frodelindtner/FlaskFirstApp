@@ -13,6 +13,10 @@ class Stat_Service:
         self.__storage_stat.add_stat(stat)
         return stat
     
+    def find_stat_by_id(self, id):
+        for s in self.get_all_stats():
+            if s.id == id:
+                return s
 
     # -------------------------------------------------------
 

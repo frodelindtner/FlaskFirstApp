@@ -25,12 +25,32 @@ def about():
 def all_albums():
     return render_template('albums.html', title = 'Liste over albums', albums = album_service.get_all_album())
 
+@app.route('/albums/<id>')
+def album_by_entry(id):
+    album = album_service.find_album_by_id(int(id))
+    if album is not None:
+        return render_template('album-details.html', album = album)
+    return '<h1>Intet album kunne findes</h1>'
+
+@app.route('/albums/create', methods=['GET', 'POST'])
+def create_album():
+    if request.method == "POST":
+        new_album = album_service.create_album(int(request.form['id']), request.form['title'], request.form['artist'], int(request.form['release_year']))
+        return redirect(url_for("album_by_entry", id = new_album.id))
+    else:
+        return render_template('create-album.html')
+
+
+
 # --------STATS-----------------------------------------------------------------
 
 @app.route('/stats')
 def all_stats():
     return render_template('stats.html', playername='Frode', title = 'List stat!', stats = stat_service.get_all_stats())
 
+@app.route('/stats/<id>')
+def stat_by_entry(id):
+    stats = stat_service.get_all_stats()
 
 if __name__=='__main__':
     app.run(debug = True)
