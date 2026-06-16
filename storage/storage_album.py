@@ -1,5 +1,5 @@
 from models.album import Album
-class Storage:
+class Storage_album:
     __albums:list[Album] = []
 
     def get_all_albums(self):

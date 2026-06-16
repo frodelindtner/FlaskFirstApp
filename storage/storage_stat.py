@@ -1,16 +1,16 @@
-from models.yearstat import Year_Stat
+from models.stat import Stat
 class Storage_Stat:
-    __stats:list[Year_Stat] = []
+    __stats:list[Stat] = []
 
     def get_all_stats(self):
         return self.__stats
     
-    def add_stat(self, stat:Year_Stat):
+    def add_stat(self, stat:Stat):
         self.__stats.append(stat)
 
-    def update_stat(self, stat:Year_Stat):
+    def update_stat(self, stat:Stat):
         for a in self.__stats:
-            if a.id == Year_Stat.id:
+            if a.id == Stat.id:
                 a = stat
                 return a
         else:

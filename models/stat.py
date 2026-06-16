@@ -1,4 +1,4 @@
-class Year_Stat:
+class Stat:
     def __init__(self, id, player, year, batting_average):
         self.__id = id
         self.player = player

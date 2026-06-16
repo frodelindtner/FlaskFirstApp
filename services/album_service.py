@@ -1,11 +1,9 @@
 from models.album import Album
-from storage import storage
-# from storage.storage import Storage
+from storage.storage_album import Storage_album
 
 class Service:
     def __init__(self):
-        self.__storage = storage.Storage()
-        # self.__storage = Storage()
+        self.__storage = Storage_album()
 
     def get_all_albums(self):
         return self.__storage.get_all_albums()

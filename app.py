@@ -39,11 +39,6 @@ def album_by_entry(id):
     if album is not None:
         return render_template('album-details.html', album = album)
     return '<h1>Intet album kunne findes</h1>'
-
-# @app.route('/albums/create', methods=['GET', 'POST'])
-# def create_album():
-
-#     return render_template('create-album.html', title='nyt album')
     
 @app.route('/albums/<id>/edit', methods=['GET', 'POST'])
 def edit_album(id):

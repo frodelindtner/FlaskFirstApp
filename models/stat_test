@@ -1,5 +1,5 @@
 import unittest
-from yearstat import Year_Stat
+from models.stat import Stat
 
 class Testing(unittest.TestCase):
     def test_create(self):

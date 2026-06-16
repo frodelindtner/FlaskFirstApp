@@ -1,4 +1,4 @@
-from models.yearstat import Year_Stat
+from models.stat import Stat
 from storage.storage_stat import Storage_Stat
 
 class Stat_Service:
@@ -9,7 +9,7 @@ class Stat_Service:
         return self.__storage_stat.get_all_stats()
     
     def create_stat(self, id, player, year, batting_average):
-        stat = Year_Stat(id, player, year, batting_average)
+        stat = Stat(id, player, year, batting_average)
         self.__storage_stat.add_stat(stat)
         return stat
     
@@ -18,7 +18,7 @@ class Stat_Service:
             if s.id == id:
                 return s
 
-    def update_stat(self, stat:Year_Stat):
+    def update_stat(self, stat:Stat):
         return self.__storage_stat.update_stat(stat)
     
     def delete_stat(self, stat_id):
