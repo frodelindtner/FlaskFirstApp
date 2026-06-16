@@ -13,7 +13,6 @@ stat_service.create_some_objects()
 @app.route('/home')
 def home():
     return render_template('index.html', title = 'Velkommen!', name = 'Jens Jakob Jensen')
-    # return '<h1>Velkommen besøgende</h1>'
 
 @app.route('/about')
 def about():
@@ -41,9 +40,10 @@ def album_by_entry(id):
         return render_template('album-details.html', album = album)
     return '<h1>Intet album kunne findes</h1>'
 
-@app.route('/albums/create', methods=['GET', 'POST'])
-def create_album():
-    return render_template('create-album.html', title='nyt album')
+# @app.route('/albums/create', methods=['GET', 'POST'])
+# def create_album():
+
+#     return render_template('create-album.html', title='nyt album')
     
 @app.route('/albums/<id>/edit', methods=['GET', 'POST'])
 def edit_album(id):
