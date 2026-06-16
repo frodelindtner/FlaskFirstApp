@@ -18,6 +18,12 @@ class Stat_Service:
             if s.id == id:
                 return s
 
+    def update_stat(self, stat:Year_Stat):
+        return self.__storage_stat.update_stat(stat)
+    
+    def delete_stat(self, stat_id):
+        self.__storage.delete_album(stat_id)
+
     # -------------------------------------------------------
 
     def create_some_objects(self):
