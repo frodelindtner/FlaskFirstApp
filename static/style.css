@@ -1,5 +1,4 @@
-body .underbox {
-    background-image: url('BG.svg');
-    background-size: 100%;
-    background-repeat: no-repeat;
+body {
+    margin-left: 10px;
+
 }

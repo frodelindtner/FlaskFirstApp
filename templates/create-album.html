@@ -1,16 +1,14 @@
 {% extends 'layout.html' %}
 {% block content %}
     <form method="post">
-        <div class="form-group">
-            <p>Id</p>
-            <p><input type="number" name="id"></p>
-            <p>Title</p>
-            <p><input type="text" name="title"></p>
-            <p>Kunstner</p>
-            <p><input type="text" name="artist"></p>
-            <p>Udgivelses år</p>
-            <p><input type="number" name="release_year"></p>
-            <p><input type="submit" value="opret"></p>
-        </div>
+        <p>Id</p>
+        <p><input type="number" name="id"></p>
+        <p>Title:</p>
+        <p><input type="text" name="title"></p>
+        <p>Artist:</p>
+        <p><input type="text" name="artist"></p>
+        <p>Release Year</p>
+        <p><input type="number" name="release_year"></p>
+        <p><input type="submit" value="submit"></p>
     </form>
 {% endblock %}

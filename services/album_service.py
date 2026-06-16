@@ -1,11 +1,13 @@
 from models.album import Album
 from storage import storage
+# from storage.storage import Storage
 
 class Service:
     def __init__(self):
         self.__storage = storage.Storage()
+        # self.__storage = Storage()
 
-    def get_all_album(self):
+    def get_all_albums(self):
         return self.__storage.get_all_albums()
     
     def create_album(self, id, title, artist, release_year):
@@ -14,16 +16,19 @@ class Service:
         return a
     
     def find_album_by_id(self, id):
-        for a in self.get_all_album():
+        for a in self.get_all_albums():
             if a.id == id:
                 return a
         else:
             return None
+        
+    def update_album(self, album:Album):
+        return self.__storage.update_album(album)
     
-
-
-# -------------------------------------------------------
-
+    def delete_album(self, album_id):
+        self.__storage.delete_album(album_id)
+    
+    # -----------------------------------------------------------------------
     def create_some_objects(self):
         self.create_album(1, 'Demon Days', 'Gorillaz', 2005)
         self.create_album(2, 'Automatic For The People', 'R.E.M.', 1992)
