@@ -3,3 +3,4 @@ static/DEN-web.jpeg
 static/Frode-Lindtner.png
 static/headcoach-pushup.jpg
 */__pycache__/*.pyc
+VoresDB.db

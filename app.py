@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from services.album_service import Service
 from services.stat_service import Stat_Service
+from services.customer_service import CustomerService
 
 app = Flask(__name__)
 album_service = Service()
@@ -8,6 +9,9 @@ album_service.create_some_objects()
 
 stat_service = Stat_Service()
 stat_service.create_some_objects()
+
+customer_service = CustomerService()
+# has customer data in data
 
 @app.route('/')
 @app.route('/home')
@@ -17,6 +21,30 @@ def home():
 @app.route('/about')
 def about():
     return render_template('about.html', title = 'Om site')
+
+# --------CUSTOMER-----------------------------------------------------------------
+
+@app.route('/customers')
+def customers():
+    customers = customer_service.get_all_customers()
+    return render_template('/customers/customers.html', cus_list = customers)
+
+@app.route('/customers/create', methods=['GET', 'POST'])
+def create_customer():
+    if request.method == 'POST':
+        customer_service.create_customer(request.form['name'], request.form['mail'], int(request.form['phone']))
+        return redirect(url_for('customers'))
+    else:
+        return render_template('/customers/create-customer.html')
+
+@app.route('/customers/<int:id>')
+def customer_details(id):
+    customer = customer_service.get_customer_by_id(id)
+    if customer is not None:
+        return render_template('/customers/customer-details.html', customer = customer)
+    else:
+        return '<h1>NOT FOUND in Customer table</h1>'
+
 
 # --------STATS-----------------------------------------------------------------
 

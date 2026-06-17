@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <h2>Her er en liste af kunder:</h2>
+    <br>
+    <br>
+    {% for c in cus_list %}
+        <h3>Navn: {{c.name}}</h3>
+        <h3>Mail: {{c.mail}}</h3>
+        <a href="/customers/{{c.id}}">Klik her for se mine detaljer</a>
+        <p>--------------------------------------------------</p>
+    {% endfor %}
+{% endblock %}
