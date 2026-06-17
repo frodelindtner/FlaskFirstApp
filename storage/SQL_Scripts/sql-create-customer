@@ -1,0 +1,121 @@
+FAILME
+-- This is a comment
+-- AutoIncrement means we NEVER re-use an id
+CREATE TABLE Customers(
+Id INTEGER PRIMARY KEY AUTOINCREMENT,
+Name NVARCHAR(50) NOT NULL,
+Email VARCHAR(50) DEFAULT 'bla@bla.dk',
+Phone INT DEFAULT 12345678
+);
+
+--- INSERT RECORDS ---
+INSERT INTO Customers(Name, Email, Phone)
+VALUES('Mark', 'MM@mail.dk', 87654321), 
+('Charlotte', 'CH@mail.dk', 12344554)
+
+SELECT * FROM Customers
+
+-- Keywords are NOT case sensitive at all
+inSeRt IntO Customers(Name)
+vaLuEs('Lisa'), ('Mina'), ('Birger'), ('Ole')
+
+SELECT * FROM Customers
+WHERE Id >= 3
+
+CREATE TABLE Products(
+Id INTEGER PRIMARY KEY AUTOINCREMENT,
+Name NVARCHAR(50) NOT NULL,
+Price INT DEFAULT 100
+);
+
+INSERT INTO Products(Name, Price)
+VALUES('TV', 5000), ('Smartphone', 7000), ('Laptop', 6000)
+
+INSERT INTO Products(Name)
+VALUES('Drikkedunk')
+
+SELECT * FROM Products
+
+CREATE TABLE Orders(
+Id INTEGER PRIMARY KEY AUTOINCREMENT,
+CId INTEGER,
+PId INTEGER,
+OrderDate DateTime DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY (CId) REFERENCES Customers(Id),
+FOREIGN KEY (PId) REFERENCES Products(Id)
+);
+
+INSERT INTO Orders(CId, PId)
+VALUES(2,3), (1,4), (3,2), (4,4)
+
+SELECT * FROM Orders
+
+--- JOIN ---
+SELECT c.Name, o.OrderDate, p.Name 'Product Name', p.Price
+FROM Orders AS o
+JOIN Customers AS c
+ON o.CId = c.Id
+JOIN Products AS p
+ON o.PId = p.Id
+
+--- ALTER ---
+ALTER TABLE Orders
+ADD PaymentStatus bit DEFAULT 0
+
+ALTER TABLE Orders
+ADD Quantity INT DEFAULT 1
+
+SELECT * FROM Orders
+
+--- UPDATE ---
+UPDATE Orders
+SET PaymentStatus = 1
+
+UPDATE Orders
+SET PaymentStatus = 0
+WHERE Id = 3
+
+UPDATE Orders
+SET Quantity = 3
+WHERE Id = 3
+
+
+SELECT c.Name, o.OrderDate, p.Name 'Product Name', p.Price 'Unit Price',
+							(o.Quantity * p.Price) AS 'Total Amount'
+FROM Orders AS o
+JOIN Customers AS c
+ON o.CId = c.Id
+JOIN Products AS p
+ON o.PId = p.Id
+
+--- CASE ---
+SELECT c.Name, o.OrderDate, p.Name 'Product Name', p.Price 'Unit Price',
+							(o.Quantity * p.Price) AS 'Total Amount',
+							CASE
+								WHEN o.PaymentStatus = 0 THEN 'NOT Paid'
+								WHEN o.PaymentStatus = 1 THEN 'Paid'
+								ELSE 'Contact SysAdmin'
+							END AS 'Payment Status'
+FROM Orders AS o
+JOIN Customers AS c
+ON o.CId = c.Id
+JOIN Products AS p
+ON o.PId = p.Id
+
+--- VIEW ---
+CREATE VIEW SalesView
+AS
+SELECT c.Name, o.OrderDate, p.Name 'Product Name', p.Price 'Unit Price',
+							(o.Quantity * p.Price) AS 'Total Amount',
+							CASE
+								WHEN o.PaymentStatus = 0 THEN 'NOT Paid'
+								WHEN o.PaymentStatus = 1 THEN 'Paid'
+								ELSE 'Contact SysAdmin'
+							END AS 'Payment Status'
+FROM Orders AS o
+JOIN Customers AS c
+ON o.CId = c.Id
+JOIN Products AS p
+ON o.PId = p.Id
+
+SELECT * FROM SalesView

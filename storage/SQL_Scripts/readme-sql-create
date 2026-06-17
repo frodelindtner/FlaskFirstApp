@@ -1,0 +1,8 @@
+the file sql-create-customer
+
+is a complete display of all the commands used to create the database "VoresDB.db"
+
+That is pyt two places in the solutions... 
+- The file SQL_Python_Demo.py used the location with is in the root
+
+- The file db_customers.py used the database created and put into the /storage folder
