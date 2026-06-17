@@ -16,3 +16,10 @@ class CustomerService:
     def get_customer_by_id(self, id):
         customer = self.__db_customers.get_customer_by_id(id)
         return customer
+    
+    def get_all_customers_json(self):
+        customers = self.get_all_customers()
+        json_res = []
+        for c in customers:
+            json_res.append(c.to_json())
+        return json_res    

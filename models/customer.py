@@ -32,3 +32,6 @@ class Customer:
     @phone.setter
     def phone(self, new_phone):
         self.__phone = new_phone
+
+    def to_json(self):
+        return {'id': self.__id, 'name': self.__name, 'mail': self.__mail, 'phone': self.__phone}        

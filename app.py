@@ -45,6 +45,17 @@ def customer_details(id):
     else:
         return '<h1>NOT FOUND in Customer table</h1>'
 
+# ------------------------------------------------------ JSON ----------------------------
+@app.route('/api/customers/<int:id>')
+def get_customer_by_id_json(id):
+    customer = customer_service.get_customer_by_id(id)
+    return customer.to_json()
+
+@app.route('/api/customers')
+def get_all_customes_json():
+    customers = customer_service.get_all_customers_json()
+    return customers
+
 
 # --------STATS-----------------------------------------------------------------
 
