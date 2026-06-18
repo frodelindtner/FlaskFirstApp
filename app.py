@@ -25,11 +25,16 @@ album_service.create_some_objects()
 @app.route('/')
 @app.route('/home')
 def home():
-    return render_template('index.html', title = 'Velkommen!', description = 'Velkommen til denne side', name = 'Jens Jakob Jensen')
+    return render_template('index.html', title = 'Velkommen', description = 'Forsiden til webstiet')
+
+@app.route('/get-started')
+def getstarted():
+    return render_template('get-started.html', title = 'Fremgangsmåde', description = 'Kom igang med brug af sitet' )
+
 
 @app.route('/about')
 def about():
-    return render_template('about.html', title = 'Om site', description = 'Her kan du læse om denne side' )
+    return render_template('about.html', title = 'Om site', description = 'Dette site er lavet i forbindelse med deltagelse i Python programmeringskursus' )
 
 # --------CUSTOMER-----------------------------------------------------------------
 
@@ -121,11 +126,6 @@ def create_order():
         customers = customer_service.get_customers()
         products = product_service.get_products()
         return render_template('orders/create-order.html', customers = customers, products = products)
-
-# ------------------------------------------------------------------------------------------------
-# @app.route('/albums')
-# def all_albums():
-#     return render_template('albums/albums.html', title = 'Alle albums', description = 'liste visning', albums = album_service.get_all_albums())
 
 @app.route('/alle-albums')
 def all_albums():

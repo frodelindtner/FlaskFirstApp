@@ -1,4 +1,40 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <h1>This is the about page, rendered by flask and JINJA2</h1>
+    <p>Det indholder to sider til at vise resultater for Baseball liga'er</p>
+    <ul>
+        <li>USA - data kommer fra API</li>
+        <li>Danmark - local - data ligger i local SQL database</li>
+    </ul>
+    <p>Det er ikke muligt at ændre data, som kommer fra API'et - der bliver leveret af SportDataIO.<br>
+    Men det er muligt at ændre og opsætte data til den lokale danske liga.<br>
+    Bemærk at når jeg fanger data fra externt API skal der bruges en gyldig API KEY.</p>
+    <p>Jeg har benyttet FLASK framework "3-layer seperation".</p>
+    <table cellpadding="5" style="width: 60%;">
+        <tr style="border-top: 1px solid;">
+            <th>Præsentation (HTML CSS)</th>
+            <td>JINJA2</td>
+            <td>Templates</td>
+            <td>Route's</td>
+        </tr>
+        <tr style="border-top: 1px solid;">
+            <th>Forretnings logic</th>
+            <td>Services</td>
+            <td>Methods</td>
+            <td>Objekter</td>
+        </tr>
+        <tr style="border-top: 1px solid; border-bottom: 1px solid;">
+            <th>Data adgang</th>
+            <td>SQLite</td>
+            <td>Connector</td>
+            <td>Mapping</td>
+        </tr>              
+    </table><br>
+    <p>Ved at benytte denne arkitektur adskiller man ansvaret for diverse componenter i websitet.<br>
+        Hvilket giver bedre overblik, og bedre muligheder for genanvendelse af logik.</p>
+        <p>&nbsp;</p>
+        <p><a href='get-started'>Kom igang :-)</a></p>
+        <p>&nbsp;</p>
+        <hr>
+        <p>Site er lavet af Frode Lindtner - data leveret af SportDataIO - og det blev lavet sommeren 2026</p>
+
 {% endblock %}
