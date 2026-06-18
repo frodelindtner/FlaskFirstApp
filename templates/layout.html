@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        {% if title %} <!-- JINJA2 -->
+        {% if title %}
             <title>{{title}}</title>
-        {% else %}
+        {% else%}
             <title>Manglende title</title>
         {% endif %}
         <link rel="stylesheet" href="/static/style.css">
+        <!-- Esternal stylesheet -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
     </head>
     <body>
@@ -16,14 +17,28 @@
                 <a class="nav-item nav-link active" href="/home">Velkomst side</a>
                 <a class="nav-item nav-link active" href="/about">En anden side</a>
                 <a class="nav-item nav-link active" href="/stats">Stats</a>
-                <a class="nav-item nav-link" href="/albums">Album</a>
+                <a class="nav-item nav-link" href="/alle-albums">Albums</a>
                 <a class="nav-item nav-link" href="/customers">Customers</a>
                 <a class="nav-item nav-link" href="/customers/create">Create customer</a>
                 <a class="nav-item nav-link" href="/orders">Orders</a>
                 <a class="nav-item nav-link" href="/orders/create">Create order</a>
             </div>
         </nav>
-        {% block content %}
-        {% endblock %}
+        <div class="container">
+            <p>
+                {% if title %}
+                    <h2>{{title}}</h2>
+                {% else%}
+                    <h2>Manglende title</h2>
+                {% endif %}
+                {% if description %}
+                    <i>{{description}}</i>
+                {% else%}
+                    <i>Manglende description</i>
+                {% endif %}  
+            </p>
+            {% block content %}
+            {% endblock %}
+        </div>
     </body>
 </html>

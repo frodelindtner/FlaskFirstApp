@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <table class="table">
+    <thead>
+        <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Title</th>
+        <th scope="col">Artist</th>
+        <th scope="col">Information</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for a in albums %}
+        <tr>
+        <td>{{a.id}}</th>
+        <td>{{a.title}}</td>
+        <td>{{a.artist}}</td>
+        <td><a href="/albums/{{a.id}}">See my info</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>        
+{% endblock %}
+
+

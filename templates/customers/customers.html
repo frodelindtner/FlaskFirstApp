@@ -1,12 +1,21 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <h2>Her er en liste af kunder:</h2>
-    <br>
-    <br>
+    <table class="table">
+    <thead>
+        <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Mail</th>
+        <th scope="col">Infomation</th>
+        </tr>
+    </thead>
+    <tbody>
     {% for c in cus_list %}
-        <h3>Navn: {{c.name}}</h3>
-        <h3>Mail: {{c.mail}}</h3>
-        <a href="/customers/{{c.id}}">Klik her for se mine detaljer</a>
-        <p>--------------------------------------------------</p>
+        <tr>
+        <td>{{c.name}}</th>
+        <td>{{c.mail}}</td>
+        <td><a href="/customers/{{c.id}}">klik for detajler</a></td>
+        </tr>    
     {% endfor %}
+    </tbody>
+    </table>     
 {% endblock %}
