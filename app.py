@@ -81,7 +81,7 @@ def standings():
 
 @app.route('/stats')
 def all_stats():
-    return render_template('stats.html', playername='Frode', title = 'List stat!', stats = stat_service.get_all_stats())
+    return render_template('stats/stats.html', playername='Frode', title = 'List stat!', stats = stat_service.get_all_stats())
 
 @app.route('/stats/<id>')
 def stat_by_entry(id):
