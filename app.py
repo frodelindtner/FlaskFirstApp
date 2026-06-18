@@ -95,7 +95,6 @@ def create_order():
         except:
             paid = False
         
-        # See the html-page for more info about how the values are created
         order_service.create_order(
             int(request.form['cid']),
             int(request.form['pid']),
@@ -103,7 +102,6 @@ def create_order():
             int(request.form['quantity']))
         return redirect(url_for("orders")) # function called "orders" in app.py
     else:
-        # Since an order includes a customer and a product, we get both lists from our service
         customers = customer_service.get_customers()
         products = product_service.get_products()
         return render_template('orders/create-order.html', customers = customers, products = products)
