@@ -3,7 +3,7 @@ from models.customer import Customer
 
 class Db_Customers:
     def __init__(self):
-        self.__connection = sqlite3.connect("storage/VoresDB.db", check_same_thread=False)
+        self.__connection = sqlite3.connect("storage/database/ShopDB.db", check_same_thread=False)
 
     def get_all_customers(self) -> list[Customer]:
         cur = self.__connection.cursor()

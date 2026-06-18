@@ -1,5 +1,5 @@
 from models.album import Album
-from storage.storage_album import Storage_album
+from storage.db_albums import Storage_album
 
 class Service:
     def __init__(self):

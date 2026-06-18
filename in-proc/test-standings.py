@@ -1,4 +1,3 @@
-from models import team
 import requests
 import json
 
@@ -7,25 +6,6 @@ class Minitest_team:
         self.season = season
         self.division = division
         self.name = name
-
-sports_url = 'https://api.sportsdata.io/v3/mlb/scores/json/Standings/2026?key=2fa1bf790451403ba1cb8303bb749b58'
-req_sports = requests.get(sports_url)
-sports_data = json.loads(req_sports.text)
-
-print(f"Number of teams: {len(sports_data)}")
-
-for sport_team in sports_data:
-    cur_team = team.Team(sport_team['Season'],
-                sport_team['SeasonType'],
-                sport_team['TeamID'],
-                sport_team['City'],
-                sport_team['Name'],
-                sport_team['League'],
-                sport_team['Division'],
-                sport_team['Wins'],
-                sport_team['Losses'],
-                sport_team['NightWins'])
-    print(f'{cur_team.name} - {cur_team.season} - {cur_team.division} - night wins: {cur_team.night_wins}')
 
 test_jsonstring = '[{"Season":2026,"SeasonType":1,"Division":"Central", "Name":"White Sox"},' \
 '               {"Season":2026,"SeasonType":1,"Division":"Central", "Name":"Black Sox"}]'
@@ -45,3 +25,23 @@ for sportteam in sports_test:
 #   "NightLosses":16,"RunsScored":335,"RunsAgainst":333,"GlobalTeamID":10000016,
 #   "ClinchedBestLeagueRecord":false,"ClinchedWildCard":false,"ClinchedDivision":false,
 #   "EliminatedFromPlayoffContention":false}]
+
+
+# sports_url = 'https://api.sportsdata.io/v3/mlb/scores/json/Standings/2026?key=2fa1bf790451403ba1cb8303bb749b58'
+# req_sports = requests.get(sports_url)
+# sports_data = json.loads(req_sports.text)
+
+# print(f"Number of teams: {len(sports_data)}")
+
+# for sport_team in sports_data:
+#     cur_team = team.Team(sport_team['Season'],
+#                 sport_team['SeasonType'],
+#                 sport_team['TeamID'],
+#                 sport_team['City'],
+#                 sport_team['Name'],
+#                 sport_team['League'],
+#                 sport_team['Division'],
+#                 sport_team['Wins'],
+#                 sport_team['Losses'],
+#                 sport_team['NightWins'])
+#     print(f'{cur_team.name} - {cur_team.season} - {cur_team.division} - night wins: {cur_team.night_wins}')

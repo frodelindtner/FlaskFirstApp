@@ -1,0 +1,43 @@
+FAILME
+
+CREATE TABLE Customers(
+	Id INTEGER PRIMARY KEY AUTOINCREMENT,
+	Name NVARCHAR(50) NOT NULL,
+	Email VARCHAR(50) DEFAULT 'bla@bla.dk',
+	Phone INT DEFAULT 12345678
+);
+
+CREATE TABLE Products(
+	Id INTEGER PRIMARY KEY AUTOINCREMENT,
+	Name NVARCHAR(50) NOT NULL,
+	Price INT DEFAULT 100
+);
+
+CREATE TABLE Orders(
+	Id INTEGER PRIMARY KEY AUTOINCREMENT,
+	CId INTEGER,
+	PId INTEGER,
+	OrderDate DateTime DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (CId) REFERENCES Customers(Id),
+	FOREIGN KEY (PId) REFERENCES Products(Id)
+);
+
+--- ALTER ---
+ALTER TABLE Orders ADD PaymentStatus bit DEFAULT 0
+ALTER TABLE Orders ADD Quantity INT DEFAULT 1
+
+--- VIEW ---
+CREATE VIEW SalesView
+AS
+SELECT c.Name, o.OrderDate, p.Name 'Product Name', p.Price 'Unit Price',
+							(o.Quantity * p.Price) AS 'Total Amount',
+							CASE
+								WHEN o.PaymentStatus = 0 THEN 'NOT Paid'
+								WHEN o.PaymentStatus = 1 THEN 'Paid'
+								ELSE 'Contact SysAdmin'
+							END AS 'Payment Status'
+FROM Orders AS o
+JOIN Customers AS c
+ON o.CId = c.Id
+JOIN Products AS p
+ON o.PId = p.Id

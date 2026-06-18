@@ -1,5 +1,5 @@
-class Team:
-    def __init__(self, season, season_type, team_id, city, name, league, division):
+class TeamResult:
+    def __init__(self, season, season_type, team_id, city, name, league, division, wins, losses, night_wins):
         self.season = season
         self.season_type = season_type
         self.team_id = team_id
@@ -7,6 +7,9 @@ class Team:
         self.name = name
         self.league = league
         self.division = division
+        self.wins = wins
+        self.losses = losses
+        self.night_wins = night_wins
 
 # "Season":2026,"SeasonType":1,"TeamID":16,"Key":"CHW","City":"Chicago",
 #   "Name":"White Sox","League":"AL","Division":"Central","Wins":38,"Losses":33,

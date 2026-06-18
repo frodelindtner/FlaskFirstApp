@@ -3,7 +3,7 @@ from models.Order import Order
 
 class Db_Orders:
     def __init__(self):
-        self.connection = sqlite3.connect(r"storage\KundeDB.db", check_same_thread=False)
+        self.connection = sqlite3.connect("storage/database/ShopDB.db", check_same_thread=False)
 
     def get_orders(self) -> list[Order]:
         cur = self.connection.cursor()

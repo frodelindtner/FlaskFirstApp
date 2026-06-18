@@ -5,3 +5,5 @@ static/headcoach-pushup.jpg
 */__pycache__/*.pyc
 VoresDB.db
 storage/KundeDB.db
+storage/database/ShopDB.db
+storage/database/StandingDB.db

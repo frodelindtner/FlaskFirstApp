@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <table class="table">
+    <thead>
+        <tr>
+        <th scope="col">Season</th>
+        <th scope="col">Name</th>
+        <th scope="col">League</th>
+        <th scope="col">Division</th>
+        <th scope="col">Wins</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for s in standing_list %}
+        <tr>
+            <td>{{s.season}}</td>
+            <td>{{s.name}}</td>
+            <td>{{s.league}}</td>
+            <td>{{s.division}}</td>
+            <td>{{s.wins}}</td>
+        </tr>    
+    {% endfor %}
+    </tbody>
+    </table>     
+{% endblock %}

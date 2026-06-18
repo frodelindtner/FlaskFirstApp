@@ -3,7 +3,7 @@ from models.Product import Product
 
 class Db_Products:
     def __init__(self):
-        self.connection = sqlite3.connect(r"storage\KundeDB.db", check_same_thread=False)
+        self.connection = sqlite3.connect("storage/database/ShopDB.db", check_same_thread=False)
 
     def get_products(self) -> list[Product]:
         cur = self.connection.cursor()

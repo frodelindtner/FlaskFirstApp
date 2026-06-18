@@ -1,5 +1,5 @@
 from models.stat import Stat
-from storage.storage_stat import Storage_Stat
+from storage.db_stats import Storage_Stat
 
 class Stat_Service:
     def __init__(self):

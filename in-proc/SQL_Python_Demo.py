@@ -1,6 +1,6 @@
 import sqlite3
 
-db = 'VoresDB.db'
+db = 'storage/VoresDB.db'
 connection = sqlite3.connect(db)
 
 def get_all_customers(conn:sqlite3.Connection):
