@@ -8,6 +8,7 @@ from services.stadings_da_service import StandingsServiceLocal
 from services.stadings_us_service import StandingsServiceUS
 
 app = Flask(__name__)
+
 album_service = Service()
 stat_service = Stat_Service()
 customer_service = CustomerService()
@@ -17,24 +18,39 @@ standing_service_local = StandingsServiceLocal()
 standing_service_us = StandingsServiceUS()
 
 standing_service_local.create_some_objects()
-stat_service.create_some_objects()
-album_service.create_some_objects()
-
-
 
 @app.route('/')
 @app.route('/home')
 def home():
-    return render_template('index.html', title = 'Velkommen', description = 'Forsiden til webstiet')
-
-@app.route('/get-started')
-def getstarted():
-    return render_template('get-started.html', title = 'Fremgangsmåde', description = 'Kom igang med brug af sitet' )
-
+    return render_template('index.html', title = 'Velkommen', 
+                           description = 'Forsiden til webstiet')
 
 @app.route('/about')
 def about():
-    return render_template('about.html', title = 'Om site', description = 'Dette site er lavet i forbindelse med deltagelse i Python programmeringskursus' )
+    return render_template('about.html', title = 'Om site', 
+                           description = 'Dette site er lavet i forbindelse med deltagelse i Python programmeringskursus' )
+
+@app.route('/get-started')
+def getstarted():
+    return render_template('get-started.html', title = 'Fremgangsmåde', 
+                           description = 'Kom igang med brug af sitet' )
+
+# dansk liga
+@app.route('/teams')
+def teams():
+    return render_template('teams/teams.html', title = 'Dansk liga', 
+                           description = 'Lokal liga - data kommer fra database', 
+                           standing_list = standing_service_local.get_all_teams())
+
+# USA liga
+@app.route('/standings')
+def standings():
+    return render_template('standings/standings.html', title = 'USA liga', 
+                           description = 'USA liga - data kommer fra API', 
+                           standing_list = standing_service_us.get_stadings())
+
+
+
 
 # --------CUSTOMER-----------------------------------------------------------------
 
@@ -70,16 +86,6 @@ def get_customer_by_id_json(id):
 def get_all_customes_json():
     customers = customer_service.get_all_customers_json()
     return customers
-
-# --------Standings-----------------------------------------------------------------
-
-@app.route('/teams')
-def teams():
-    return render_template('teams/teams.html', title = 'List division', standing_list = standing_service_local.get_all_teams())
-
-@app.route('/standings')
-def standings():
-    return render_template('standings/standings.html', title = 'List division', standing_list = standing_service_us.get_stadings())
 
 
 # --------STATS-----------------------------------------------------------------
