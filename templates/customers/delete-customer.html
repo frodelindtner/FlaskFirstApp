@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <h2>Er du sikker på du vil slette:</h2>
+    <form action="#" method="post">
+        <p>ID</p>
+        <p><input type="number" name="id" value="{{customer.id}}" readonly></p>
+        <h3>Name: {{customer.name}}</h3>
+        <h3>Email: {{customer.mail}}</h3>
+        <h3>Phone:   {{customer.phone}}</h3>
+        <p><input type="submit" value="Slet?"></p>
+    </form>
+{% endblock %}

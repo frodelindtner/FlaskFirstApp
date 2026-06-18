@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <h2>Her er en liste af vores ordrer:</h2>
+    <br>
+    <br>
+    {% for o in orders_list %}
+        <h3>Kunde: {{o.customer.name}}</h3>
+        <h3>Produkt: {{o.product.name}}</h3>
+        <h3>Date: {{o.order_date}}</h3>
+        {% if not o.payment_status %}
+        <h3><span style="background-color: red; color: yellow;">NOT PAID</span></h3>
+        {% endif %}
+        <a href="/orders/{{o.id}}">See my full info</a>
+        <p>------------------------------------------------------------</p>
+    {% endfor %}
+{% endblock %}
