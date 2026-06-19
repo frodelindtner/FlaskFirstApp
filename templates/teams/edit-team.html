@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="col-4">
+        <form action="#" method="post">
+            <div class="form-group">
+                <label for="id">Id:</label>
+                <!-- added id to input type it for bootstrap 'label for' -->
+                <input type="number" name="id" id="id" class="form-control" readonly value="{{team.id}}">
+                <label>Sæson:</label>
+                <input type="text" name="season" class="form-control" value="{{team.season}}">
+                <label for="city">By:</label>
+                <input type="text" name="city" id="city" class="form-control" value="{{team.city}}">
+                <label for="name">Hold navn:</label>
+                <input type="text" name="name" id="name" class="form-control" value="{{team.name}}">
+                <label for="league">Liga:</label>
+                <input type="text" name="league" id="league" class="form-control" value="{{team.league}}">
+                <label for="division">Division:</label>
+                <input type="text" name="division" id="division" class="form-control" value="{{team.division}}">
+                <label for="title">&nbsp;</label>
+                <input type="submit" class="form-control" value="Update">
+            </div>            
+        </form>
+    </div>
+{% endblock %}

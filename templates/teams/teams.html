@@ -1,23 +1,30 @@
 {% extends 'layout.html' %}
 {% block content %}
+    <p>&nbsp;</p>
     <table class="table">
     <thead>
         <tr>
-        <th scope="col">Season</th>
-        <th scope="col">Name</th>
-        <th scope="col">League</th>
-        <th scope="col">Division</th>
+            <th>Id</th>
+            <th>Navn</th>
+            <th>By</th>
+            <th>Sæson</th>
+            <th>Liga</th>
+            <th>Division</th>
         </tr>
     </thead>
     <tbody>
-    {% for s in standing_list %}
+    {% for team in standing_list %}
         <tr>
-            <td>{{s.season}}</td>
-            <td>{{s.name}}</td>
-            <td>{{s.league}}</td>
-            <td>{{s.division}}</td>
+            <td><a href='teams/{{team.id}}'>{{team.id}}</a></td>
+            <td>{{team.name}}</td>
+            <td>{{team.city}}</td>
+            <td>{{team.season}}</td>
+            <td>{{team.league}}</td>
+            <td>{{team.division}}</td>
         </tr>    
     {% endfor %}
     </tbody>
-    </table>     
+    </table>
+    <p>&nbsp;</p>
+    <a href="createteamsauto">Opret hold for mig!</a>
 {% endblock %}

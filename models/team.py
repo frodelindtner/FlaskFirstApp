@@ -1,8 +1,7 @@
 class Team:
-    def __init__(self, id, season, season_type,city, name, league, division):
+    def __init__(self, id, season, city, name, league, division):
         self.id = id
         self.season = season
-        self.season_type = season_type
         self.city = city
         self.name = name
         self.league = league
