@@ -1,12 +1,20 @@
-class Team:
-    def __init__(self, id, season, season_type,city, name, league, division):
-        self.id = id
+class StandingDto:
+    def __init__(self, season, season_type, team_id, city, name, league, division, wins, losses, night_wins):
         self.season = season
         self.season_type = season_type
+        self.team_id = team_id
         self.city = city
         self.name = name
         self.league = league
         self.division = division
+        self.wins = wins
+        self.losses = losses
+        self.night_wins = night_wins
+
+    @property
+    def get_division(self):
+        return str(self.division)
+    
 
 # "Season":2026,"SeasonType":1,"TeamID":16,"Key":"CHW","City":"Chicago",
 #   "Name":"White Sox","League":"AL","Division":"Central","Wins":38,"Losses":33,
@@ -16,4 +24,4 @@ class Team:
 #   "HomeLosses":12,"AwayWins":14,"AwayLosses":21,"DayWins":16,"DayLosses":17,"NightWins":22,
 #   "NightLosses":16,"RunsScored":335,"RunsAgainst":333,"GlobalTeamID":10000016,
 #   "ClinchedBestLeagueRecord":false,"ClinchedWildCard":false,"ClinchedDivision":false,
-#   "EliminatedFromPlayoffContention":false        
+#   "EliminatedFromPlayoffContention":false       
