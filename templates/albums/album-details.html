@@ -1,9 +1,0 @@
-{% extends 'layout.html' %}
-{% block content %}
-    <h3>Id:             {{album.id}}</h3>
-    <h3>Title:          {{album.title}}</h3>
-    <h3>Artist:         {{album.artist}}</h3>
-    <h3>Release Year:   {{album.release_year}}</h3>
-    <a href="/albums/{{album.id}}/edit">Update my info!</a><br> <!-- Links to the edit page of the album -->
-    <a href="/albums/{{album.id}}/delete">Delete me?</a>        <!-- ...and the delete page -->
-{% endblock %}

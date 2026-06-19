@@ -15,7 +15,7 @@
     <tbody>
     {% for team in standing_list %}
         <tr>
-            <td><a href='teams/{{team.id}}'>{{team.id}}</a></td>
+            <td><a href='teams/{{team.id}}/edit'>{{team.id}}</a></td>
             <td>{{team.name}}</td>
             <td>{{team.city}}</td>
             <td>{{team.season}}</td>
@@ -26,5 +26,7 @@
     </tbody>
     </table>
     <p>&nbsp;</p>
+    <a href="teams/create">Opret et hold selv</a>
+    <br><br>
     <a href="createteamsauto">Opret hold for mig!</a>
 {% endblock %}

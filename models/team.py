@@ -1,18 +1,52 @@
 class Team:
     def __init__(self, id, season, city, name, league, division):
-        self.id = id
-        self.season = season
-        self.city = city
-        self.name = name
-        self.league = league
-        self.division = division
+        self.__id = id
+        self.__season = season
+        self.__city = city
+        self.__name = name
+        self.__league = league
+        self.__division = division
 
-# "Season":2026,"SeasonType":1,"TeamID":16,"Key":"CHW","City":"Chicago",
-#   "Name":"White Sox","League":"AL","Division":"Central","Wins":38,"Losses":33,
-#   "Percentage":0.5352112676056338028169014085,"DivisionWins":12,"DivisionLosses":5,
-#   "GamesBehind":0.00,"LastTenGamesWins":6,"LastTenGamesLosses":4,"Streak":"L1",
-#   "LeagueRank":4,"DivisionRank":2,"WildCardRank":2,"WildCardGamesBehind":-2.50,"HomeWins":24,
-#   "HomeLosses":12,"AwayWins":14,"AwayLosses":21,"DayWins":16,"DayLosses":17,"NightWins":22,
-#   "NightLosses":16,"RunsScored":335,"RunsAgainst":333,"GlobalTeamID":10000016,
-#   "ClinchedBestLeagueRecord":false,"ClinchedWildCard":false,"ClinchedDivision":false,
-#   "EliminatedFromPlayoffContention":false        
+    @property
+    def id(self):
+        return self.__id
+
+    @property
+    def season(self):
+        return self.__season
+    
+    @season.setter
+    def name(self, new_season):
+        self.__season = new_season
+
+    @property
+    def city(self):
+        return self.__city
+    
+    @city.setter
+    def city(self, new_city):
+        self.__city = new_city
+
+    @property
+    def name(self):
+        return self.__name
+    
+    @name.setter
+    def name(self, new_name):
+        self.__name = new_name    
+    
+    @property
+    def league(self):
+        return self.__league
+    
+    @league.setter
+    def name(self, new_league):
+        self.__league = new_league
+
+    @property
+    def division(self):
+        return self.__division
+    
+    @division.setter
+    def name(self, new_division):
+        self.__division = new_division

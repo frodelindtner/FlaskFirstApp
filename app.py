@@ -1,16 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for
-from services.customer_service import CustomerService
-from services.order_service import OrderService
-from services.product_service import ProductService
-from services.team_service import TeamService
 from services.stadings_us_service import StandingsServiceUS
+from services.team_service import TeamService
 
 app = Flask(__name__)
 
 team_service = TeamService()
-customer_service = CustomerService()
-order_service = OrderService()
-product_service = ProductService()
 standing_service_us = StandingsServiceUS()
 
 @app.route('/')
@@ -32,22 +26,28 @@ def getstarted():
 #------------------------------------------------------------------------------------------------------------------------------
 # local league
 #------------------------------------------------------------------------------------------------------------------------------
+@app.route('/createteamsauto')
+def create_teams_auto():
+    team_service.create_some_objects()
+    return redirect(url_for("teams"))
+
 @app.route('/teams')
 def teams():
     return render_template('teams/teams.html', title = 'Dansk liga', 
                            description = 'Lokal liga - data kommer fra database', 
                            standing_list = team_service.get_all_teams())
 
-@app.route('/createteamsauto')
-def create_teams_auto():
-    team_service.create_some_objects()
-    return redirect(url_for("teams"))
+@app.route('/teams/create', methods=['GET', 'POST'])
+def create_team():
+    return render_template('teams/create-team.html', title = 'Opret hold', 
+                           description = 'Her kan du oprette et hold')
 
-@app.route('/teams/<int:id>')
-def creat_team(id):
+@app.route('/teams/<int:id>/edit', methods=['GET', 'POST'])
+def edit_team(id):
     return render_template('teams/edit-team.html', title = 'Rediger hold',
                            description = 'Her kan du redigere dit hold',
                            team = team_service.get_team_by_id(id))
+
 
 #------------------------------------------------------------------------------------------------------------------------------
 # External league by API

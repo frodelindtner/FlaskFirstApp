@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="col-4">
+        <form action="#" method="post">
+            <div class="form-group">
+                <label for="season">Sæson:</label>
+                <input type="text" name="season" id="season" class="form-control">
+
+                <label for="name">Hold navn:</label>
+                <input type="text" name="name" id="name" class="form-control">
+
+                <label for="city">By:</label>
+                <input type="text" name="city" id="city" class="form-control">
+
+                <label for="league">Liga:</label>
+                <input type="text" name="league" id="league" class="form-control">
+
+                <label for="division">Division:</label>
+                <input type="text" name="division" id="division" class="form-control">
+
+                <br>
+                <input type="submit" class="form-control" value="Create">
+            </div>            
+        </form>
+    </div>
+{% endblock %}

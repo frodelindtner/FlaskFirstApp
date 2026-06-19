@@ -9,13 +9,8 @@ class TeamService:
         return self.__storage.get_all_teams()
 
     def get_team_by_id(self, id):
-        teams = self.__storage.get_all_teams()
-        for team in teams:
-            if team.id == id:
-                return team
-        else:
-            return None
-
+        team = self.__storage.get_team_by_id(id)
+        return team
 
     def create_team(self, id, season, city, name, league, division):
         t = Team(id, season, city, name, league, division)
