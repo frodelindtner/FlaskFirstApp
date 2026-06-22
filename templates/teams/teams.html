@@ -7,7 +7,7 @@
             <th>Id</th>
             <th>Navn</th>
             <th>Liga</th>
-            <th>Result</th>
+            <th>Division</th>
         </tr>
     </thead>
     <tbody>
@@ -16,7 +16,7 @@
             <td><a href='teams/{{team.id}}/edit'>{{team.id}}</a></td>
             <td>{{team.name}}</td>
             <td>{{team.league}}</td>
-            <td><a href="results/{{team.id}}/edit">Resulter</a></td>
+            <td>{{team.division}}</td>
         </tr>    
     {% endfor %}
     </tbody>

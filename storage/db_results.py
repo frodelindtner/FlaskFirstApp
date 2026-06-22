@@ -2,7 +2,7 @@ from models.result import Result
 
 class Storage_Result:
     __results:list[Result] = []
-    __curid = 1000000
+    __curid = 100
 
     def get_all_results(self):
         return self.__results

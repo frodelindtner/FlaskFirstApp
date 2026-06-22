@@ -2,7 +2,7 @@ from models.team import Team
 
 class Storage_Team:
     __teams:list[Team] = []
-    __curid = 1101111
+    __curid = 10
 
     def get_all_teams(self):
         return self.__teams

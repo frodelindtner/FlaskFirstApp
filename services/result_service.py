@@ -29,13 +29,3 @@ class ResultService:
 
     def create_empty_result(self, teamid):
         self.create_result(teamid, 0, 0)
-
-    def create_some_objects(self):
-        self.create_result(101101, 12, 12)
-        self.create_result(101102, 12, 12)
-        self.create_result(101103, 12, 12)
-        self.create_result(101104, 12, 12)
-        self.create_result(101105, 12, 12)
-        self.create_result(101106, 12, 12)
-
- 
