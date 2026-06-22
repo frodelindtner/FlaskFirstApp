@@ -6,10 +6,7 @@
         <tr>
             <th>Id</th>
             <th>Navn</th>
-            <th>By</th>
-            <th>Sæson</th>
             <th>Liga</th>
-            <th>Division</th>
             <th>Result</th>
         </tr>
     </thead>
@@ -18,10 +15,7 @@
         <tr>
             <td><a href='teams/{{team.id}}/edit'>{{team.id}}</a></td>
             <td>{{team.name}}</td>
-            <td>{{team.city}}</td>
-            <td>{{team.season}}</td>
             <td>{{team.league}}</td>
-            <td>{{team.division}}</td>
             <td><a href="results/{{team.id}}/edit">Resulter</a></td>
         </tr>    
     {% endfor %}

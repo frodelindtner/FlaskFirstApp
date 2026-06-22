@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from services.stadings_us_service import StandingsServiceUS
+from services.stadings_local_service import StandingsServiceLocal
 from services.team_service import TeamService
 from services.result_service import ResultService
 
@@ -8,6 +9,7 @@ app = Flask(__name__)
 team_service = TeamService()
 result_service = ResultService()
 standing_service_us = StandingsServiceUS()
+standing_service_local = StandingsServiceLocal()
 
 # Only for test!
 # result_service.create_some_objects()
@@ -71,9 +73,8 @@ def edit_team(id):
 def edit_result(teamid):
     if request.method == "POST":
         resultid = int(request.form['id']) # result id
-        result_service.update_result(resultid, teamid, request.form['wins'], request.form['losses'],
-                                     request.form['nightwins'])
-        return redirect(url_for("results"))
+        result_service.update_result(resultid, teamid, request.form['wins'], request.form['losses'])
+        return redirect(url_for("standingslocal"))
     else:
         return render_template('results/edit-result.html', title = 'Holdets resultater',
                                description = 'Opret holdets sejre og nederlag',
@@ -84,6 +85,12 @@ def results():
     return render_template('results/results.html', title = 'Dansk liga resultater', 
                            description = 'Lokal liga - result - data kommer fra database', 
                            result_list = result_service.get_all_results())
+
+@app.route('/standings-local')
+def standingslocal():
+    return render_template('standings/standingslocal.html', title = 'Dansk liga', 
+                           description = 'Dansk liga - data kommer fra SQLite', 
+                           standings_dto = standing_service_local.get_stadings(team_service, result_service))
 
 #------------------------------------------------------------------------------------------------------------------------------
 # External league by API

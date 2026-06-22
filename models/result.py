@@ -1,10 +1,9 @@
 class Result:
-    def __init__(self, team_id, wins, losses, night_wins):
+    def __init__(self, team_id, wins, losses):
         self.__id = None
         self.__team_id = team_id
         self.__wins = wins
         self.__losses = losses
-        self.__night_wins = night_wins
     
     @property
     def id(self):
@@ -38,12 +37,3 @@ class Result:
     @losses.setter
     def losses(self, new_losses):
         self.__losses = new_losses
-
-
-    @property
-    def nightwins(self):
-        return self.__night_wins
-
-    @nightwins.setter
-    def night_wins(self, new_night_wins):
-        self.__night_wins = new_night_wins
