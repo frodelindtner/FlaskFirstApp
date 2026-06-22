@@ -39,12 +39,24 @@ def teams():
 
 @app.route('/teams/create', methods=['GET', 'POST'])
 def create_team():
-    return render_template('teams/create-team.html', title = 'Opret hold', 
-                           description = 'Her kan du oprette et hold')
+    if request.method == "POST":
+        team_service.create_team(request.form['season'], request.form['city'], request.form['name'], 
+                                 request.form['league'], request.form['division'])
+        return redirect(url_for("teams")) 
+    else:
+        return render_template('teams/create-team.html', title = 'Opret hold', 
+                               description = 'Her kan du oprette et hold')
 
 @app.route('/teams/<int:id>/edit', methods=['GET', 'POST'])
 def edit_team(id):
-    return render_template('teams/edit-team.html', title = 'Rediger hold',
+    if request.method == "POST":
+        teamId = int(request.form['id'])
+        print(teamId)
+        team_service.update_team(teamId, request.form['season'], request.form['city'], request.form['name'],
+                                 request.form['league'], request.form['division'])
+        return redirect(url_for("teams"))
+    else:
+        return render_template('teams/edit-team.html', title = 'Rediger hold',
                            description = 'Her kan du redigere dit hold',
                            team = team_service.get_team_by_id(id))
 

@@ -12,9 +12,16 @@ class TeamService:
         team = self.__storage.get_team_by_id(id)
         return team
 
-    def create_team(self, id, season, city, name, league, division):
-        t = Team(id, season, city, name, league, division)
+    def create_team(self, season, city, name, league, division):
+        t = Team(season, city, name, league, division)
         self.__storage.add_team(t)
+        return t
+
+    def update_team(self, id, season, city, name, league, division):
+        t = Team(season, city, name, league, division)
+        t.id = id
+        print(f'update team service {t.id}')
+        self.__storage.update_team(t)
         return t
 
     def create_some_objects(self):

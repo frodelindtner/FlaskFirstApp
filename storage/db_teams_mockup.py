@@ -14,19 +14,12 @@ class Storage_Team:
             return None
 
     def add_team(self, team:Team):
-        # Id from sequens in SQL
-        team.id = 111111
         self.__teams.append(team)
 
     def update_team(self, team:Team):
-        print(f'in storage: {team.id}')
         for t in self.__teams:
             if t.id == team.id:
                 t = team
-                self.delete_team(team.id)
-                self.add_team(team)
-                print(t.name)
-                print(team.name)
                 return t
         else:
             return None
