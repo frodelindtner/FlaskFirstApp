@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="col-4">
+        <form action="#" method="post">
+            <div class="form-group">
+                <label for="id">Id (result):</label>
+                <input type="number" name="id" id="id" class="form-control" readonly value="{{result.id}}">
+
+                <label for="teamId">Id (hold):</label>
+                <input type="number" name="teamid" id="teamid" class="form-control" readonly value="{{result.teamid}}">
+
+                <label for="wins">Sejre:</label>
+                <input type="text" name="wins" id="wins" class="form-control" value="{{result.wins}}">
+
+                <label for="nightwins">Nat sejre:</label>
+                <input type="text" name="nightwins" id="nightwins" class="form-control" value="{{result.nightwins}}">
+
+                <label for="losses">Nederlag:</label>
+                <input type="text" name="losses" id="losses" class="form-control" value="{{result.losses}}">
+
+                <br>
+                <input type="submit" class="form-control" value="Update">
+            </div>            
+        </form>
+    </div>
+{% endblock %}

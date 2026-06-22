@@ -1,11 +1,16 @@
 from flask import Flask, render_template, request, redirect, url_for
 from services.stadings_us_service import StandingsServiceUS
 from services.team_service import TeamService
+from services.result_service import ResultService
 
 app = Flask(__name__)
 
 team_service = TeamService()
+result_service = ResultService()
 standing_service_us = StandingsServiceUS()
+
+# Only for test!
+# result_service.create_some_objects()
 
 @app.route('/')
 @app.route('/home')
@@ -28,7 +33,7 @@ def getstarted():
 #------------------------------------------------------------------------------------------------------------------------------
 @app.route('/createteamsauto')
 def create_teams_auto():
-    team_service.create_some_objects()
+    team_service.create_some_objects(result_service)
     return redirect(url_for("teams"))
 
 @app.route('/teams')
@@ -41,7 +46,7 @@ def teams():
 def create_team():
     if request.method == "POST":
         team_service.create_team(request.form['season'], request.form['city'], request.form['name'], 
-                                 request.form['league'], request.form['division'])
+                                 request.form['league'], request.form['division'], result_service)
         return redirect(url_for("teams")) 
     else:
         return render_template('teams/create-team.html', title = 'Opret hold', 
@@ -50,8 +55,7 @@ def create_team():
 @app.route('/teams/<int:id>/edit', methods=['GET', 'POST'])
 def edit_team(id):
     if request.method == "POST":
-        teamId = int(request.form['id'])
-        print(teamId)
+        teamId = id
         team_service.update_team(teamId, request.form['season'], request.form['city'], request.form['name'],
                                  request.form['league'], request.form['division'])
         return redirect(url_for("teams"))
@@ -59,7 +63,27 @@ def edit_team(id):
         return render_template('teams/edit-team.html', title = 'Rediger hold',
                            description = 'Her kan du redigere dit hold',
                            team = team_service.get_team_by_id(id))
+#------------------------------------------------------------------------------------------------------------------------------
+# Results local league
+#------------------------------------------------------------------------------------------------------------------------------
 
+@app.route('/results/<int:teamid>/edit', methods=['GET','POST'])
+def edit_result(teamid):
+    if request.method == "POST":
+        resultid = int(request.form['id']) # result id
+        result_service.update_result(resultid, teamid, request.form['wins'], request.form['losses'],
+                                     request.form['nightwins'])
+        return redirect(url_for("results"))
+    else:
+        return render_template('results/edit-result.html', title = 'Holdets resultater',
+                               description = 'Opret holdets sejre og nederlag',
+                               result = result_service.get_result_by_teamid(teamid))
+    
+@app.route('/results')
+def results():
+    return render_template('results/results.html', title = 'Dansk liga resultater', 
+                           description = 'Lokal liga - result - data kommer fra database', 
+                           result_list = result_service.get_all_results())
 
 #------------------------------------------------------------------------------------------------------------------------------
 # External league by API
@@ -80,12 +104,6 @@ def standings_with_filter(filter_league):
                            standings_dto = standing_service_us.get_standings_dto_filter_by_league(filter_league),
                            filter_league = filter_league,
                            filter_division = filter_division_querystring)
-
-
-
-
-
-    
 
 if __name__=='__main__':
     app.run(debug = True)

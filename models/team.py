@@ -20,7 +20,7 @@ class Team:
         return self.__season
     
     @season.setter
-    def name(self, new_season):
+    def season(self, new_season):
         self.__season = new_season
 
     @property

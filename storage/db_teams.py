@@ -2,6 +2,7 @@ from models.team import Team
 
 class Storage_Team:
     __teams:list[Team] = []
+    __curid = 1101111
 
     def get_all_teams(self):
         return self.__teams
@@ -15,8 +16,10 @@ class Storage_Team:
 
     def add_team(self, team:Team):
         # Id from sequens in SQL
-        team.id = 111111
+        team.id = self.__curid
         self.__teams.append(team)
+        self.__curid += 1
+        return team.id
 
     def update_team(self, team:Team):
         print(f'in storage: {team.id}')
@@ -25,8 +28,6 @@ class Storage_Team:
                 t = team
                 self.delete_team(team.id)
                 self.add_team(team)
-                print(t.name)
-                print(team.name)
                 return t
         else:
             return None
@@ -34,5 +35,5 @@ class Storage_Team:
     def delete_team(self, id):
         for t in self.__teams:
             if t.id == id:
-                self.__team.remove(t)
+                self.__teams.remove(t)
                 break

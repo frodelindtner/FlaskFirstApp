@@ -10,6 +10,7 @@
             <th>Sæson</th>
             <th>Liga</th>
             <th>Division</th>
+            <th>Result</th>
         </tr>
     </thead>
     <tbody>
@@ -21,6 +22,7 @@
             <td>{{team.season}}</td>
             <td>{{team.league}}</td>
             <td>{{team.division}}</td>
+            <td><a href="results/{{team.id}}/edit">Resulter</a></td>
         </tr>    
     {% endfor %}
     </tbody>
@@ -29,4 +31,7 @@
     <a href="teams/create">Opret et hold selv</a>
     <br><br>
     <a href="createteamsauto">Opret hold for mig!</a>
+
+    <hr>
+    <a href="results">Se alle result poster</a>
 {% endblock %}
