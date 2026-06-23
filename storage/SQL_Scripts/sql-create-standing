@@ -3,10 +3,9 @@ FAILME
 CREATE TABLE Teams(
 	Id INTEGER PRIMARY KEY AUTOINCREMENT,
 	Season INTEGER,
-	SeasonType INTEGER,
 	City VARCHAR(50),
 	Name VARCHAR(50),
-	ShortNameLeague VARCHAR(20),
+	League VARCHAR(20),
 	Division VARCHAR(50)
 );
 
