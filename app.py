@@ -54,9 +54,19 @@ def edit_team(id):
     else:
         return render_template('teams/edit-team.html', title = 'Rediger hold',
                            team = team_service.get_team_by_id(id))
+
+@app.route('/teams/<int:id>/delete')
+def delete_team(id):
+    team_service.delete_team(id)
+    result_service.delete_result_by_teamid(id)
+    return redirect(url_for("teams"))    
 #------------------------------------------------------------------------------------------------------------------------------
 # Results local league
 #------------------------------------------------------------------------------------------------------------------------------
+@app.route('/team/<int:id>/add-win')
+def add_win_team(id):
+    result_service.add_win_team(id)
+    return redirect(url_for("standingslocal"))
 
 @app.route('/results/<int:teamid>/edit', methods=['GET','POST'])
 def edit_result(teamid):
@@ -76,8 +86,7 @@ def results():
 @app.route('/standings-local')
 def standingslocal():
     return render_template('standings/standingslocal.html', title = 'Dansk liga', 
-                           standings_dto = standing_service.get_stadings_local(team_service, result_service))
-
+                           standings = standing_service.get_stadings_local(team_service, result_service))
 #------------------------------------------------------------------------------------------------------------------------------
 # External league by API
 #------------------------------------------------------------------------------------------------------------------------------
@@ -95,6 +104,14 @@ def standings_with_filter(filter_league):
                            standings_dto = standing_service.get_standings_us_filter_by_league(filter_league),
                            filter_league = filter_league,
                            filter_division = filter_division_querystring)
+
+#------------------------------------------------------------------------------------------------------------------------------
+# Exposing local leage by endpoint
+#------------------------------------------------------------------------------------------------------------------------------
+@app.route('/api/standings', methods = ['GET'])
+def get_all_local_standings():
+    customers = standing_service.get_all_local_standings_json(team_service, result_service)
+    return customers
 
 if __name__=='__main__':
     app.run(debug = True)

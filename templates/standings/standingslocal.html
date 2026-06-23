@@ -7,21 +7,23 @@
         <th scope="col">Navn</th>
         <th scope="col">Liga</th>
         <th scope="col">Division</th>
-        <th scope="col">Resulter</th>
+        <th scope="col">Handling</th>
         <th scope="col">Sejre</th>
         <th scope="col">Nederlag</th>
+        <th scope="col">Resulter</th>
         </tr>
     </thead>
     <tbody>
-    {% for standing in standings_dto %}
+    {% for s in standings %}
         <tr>
-            <td>{{standing.season}}</td>
-            <td><a href='teams/{{standing.team_id}}/edit'>{{standing.name}}</a></td>
-            <td>{{standing.league}}</td>
-            <td>{{standing.division}}</td>
-            <td><a href="results/{{standing.team_id}}/edit">Resultater</a></td>
-            <td>{{standing.wins}}</td>
-            <td>{{standing.losses}}</td>
+            <td>{{s.season}}</td>
+            <td><a href='teams/{{s.team_id}}/edit'>{{s.name}}</a></td>
+            <td>{{s.league}}</td>
+            <td>{{s.division}}</td>
+            <td><a href="/team/{{s.team_id}}/add-win">+sejre</a></td>
+            <td>{{s.wins}}</td>
+            <td>{{s.losses}}</td>
+            <td><a href="results/{{s.team_id}}/edit">Resultater</a></td>
         </tr>    
     {% endfor %}
     </tbody>

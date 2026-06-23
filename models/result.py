@@ -1,6 +1,6 @@
 class Result:
-    def __init__(self, team_id, wins, losses):
-        self.__id = None
+    def __init__(self, id, team_id, wins, losses):
+        self.__id = id
         self.__team_id = team_id
         self.__wins = wins
         self.__losses = losses
@@ -8,10 +8,6 @@ class Result:
     @property
     def id(self):
         return self.__id
-
-    @id.setter
-    def id(self, new_id):
-        self.__id = new_id
 
     @property
     def teamid(self):

@@ -1,43 +1,49 @@
+import sqlite3
 from models.result import Result
 
 class Storage_Result:
-    __results:list[Result] = []
-    __curid = 100
+    def __init__(self):
+        self.__connection = sqlite3.connect("storage/database/StandingDB.db", check_same_thread=False)
 
     def get_all_results(self):
-        return self.__results
+        cur = self.__connection.cursor()
+        cur.execute("SELECT * FROM Results")
+        results = []
+        for row in cur:
+            result_obj = Result(*row)
+            results.append(result_obj)
+        cur.close()
+        return results
     
     def get_result_by_id(self, id):
-        for r in self.__results:
-            if r.id == id:
-                return r
-        else:
-            return None
+        cur = self.__connection.cursor()
+        cur.execute("SELECT * FROM Results WHERE Id = (?)", (id,))
+        for row in cur:
+            result = Result(*row)
+        return result
 
     def get_result_by_teamid(self, teamid):
-        for r in self.__results:
-            if r.teamid == teamid:
-                return r
-        else:
-            return None
+        cur = self.__connection.cursor()
+        cur.execute("SELECT * FROM Results WHERE TeamId = (?)", (teamid,))
+        for row in cur:
+            result = Result(*row)
+        return result
 
     def add_result(self, result:Result):
-        # Id from sequens in SQL
-        result.id = self.__curid
-        self.__results.append(result)
-        self.__curid = self.__curid + 1
+        cur = self.__connection.cursor()
+        cur.execute(f"INSERT INTO Results(Id, TeamId, Wins, Losses) VALUES(?, ?, ?, ?)"
+                    ,(result.id, result.teamid, result.wins, result.losses))
+        self.__connection.commit()
+        return cur.lastrowid
 
     def update_result(self, result:Result):
-        for r in self.__results:
-            if r.id == result.id:
-                r.losses = result.losses
-                r.wins = result.wins
-                return r
-        else:
-            return None
+        cur = self.__connection.cursor()
+        cur.execute(f"UPDATE Results SET TeamId = (?), Wins = (?), Losses = (?) WHERE Id = (?)", 
+                    (result.teamid, result.wins, result.losses, result.id))
+        self.__connection.commit()
+
     
     def delete_result(self, id):
-        for r in self.__results:
-            if r.id == id:
-                self.__results.remove(r)
-                break
+        cur = self.__connection.cursor()
+        cur.execute(f"DELETE FROM Results WHERE Id = (?)", (id,))
+        self.__connection.commit()

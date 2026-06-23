@@ -1,6 +1,6 @@
 class Team:
-    def __init__(self, season, city, name, league, division):
-        self.__id = None
+    def __init__(self, id, season, city, name, league, division):
+        self.__id = id
         self.__season = season
         self.__city = city
         self.__name = name
@@ -10,10 +10,6 @@ class Team:
     @property
     def id(self):
         return self.__id
-
-    @id.setter
-    def id(self, new_id):
-        self.__id = new_id
 
     @property
     def season(self):

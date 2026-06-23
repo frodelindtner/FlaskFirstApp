@@ -1,39 +1,41 @@
 from models.team import Team
+import sqlite3
 
 class Storage_Team:
-    __teams:list[Team] = []
-    __curid = 10
+    def __init__(self):
+        self.__connection = sqlite3.connect("storage/database/StandingDB.db", check_same_thread=False)
 
-    def get_all_teams(self):
-        return self.__teams
+    def get_all_teams(self) -> list[Team]:
+        cur = self.__connection.cursor()
+        cur.execute("SELECT * FROM Teams")
+        teams = []
+        for row in cur:
+            team_obj = Team(*row)
+            teams.append(team_obj)
+        cur.close()
+        return teams
     
     def get_team_by_id(self, id):
-        for t in self.__teams:
-            if t.id == id:
-                return t
-        else:
-            return None
-
+        cur = self.__connection.cursor()
+        cur.execute("SELECT * FROM Teams WHERE Id = (?)", (id,))
+        for row in cur:
+            team = Team(*row)
+        return team
+    
     def add_team(self, team:Team):
-        # Id from sequens in SQL
-        team.id = self.__curid
-        self.__teams.append(team)
-        self.__curid += 1
-        return team.id
+        cur = self.__connection.cursor()
+        cur.execute(f"INSERT INTO Teams(Season, City, Name, League, Division) VALUES(?, ?, ?, ?, ?)"
+                    ,(team.season, team.city, team.name, team.league, team.division))
+        self.__connection.commit()
+        return cur.lastrowid
 
     def update_team(self, team:Team):
-        print(f'in storage: {team.id}')
-        for t in self.__teams:
-            if t.id == team.id:
-                t = team
-                self.delete_team(team.id)
-                self.add_team(team)
-                return t
-        else:
-            return None
+        cur = self.__connection.cursor()
+        cur.execute(f"UPDATE Teams SET Season = (?), City = (?), Name = (?), League = (?), Division = (?) WHERE Id = (?)", 
+                    (team.season, team.city, team.name, team.league, team.division, team.id))
+        self.__connection.commit()
     
     def delete_team(self, id):
-        for t in self.__teams:
-            if t.id == id:
-                self.__teams.remove(t)
-                break
+        cur = self.__connection.cursor()
+        cur.execute(f"DELETE FROM Teams WHERE Id = (?)", (id,))
+        self.__connection.commit()

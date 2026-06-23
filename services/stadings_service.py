@@ -56,3 +56,9 @@ class StandingsService:
 
         return filtered_list
  
+    def get_all_local_standings_json(self, team_service, result_service):
+        standings = self.get_stadings_local(team_service, result_service)
+        json_res = []
+        for standing in standings:
+            json_res.append(standing.to_json())
+        return json_res

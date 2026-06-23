@@ -23,8 +23,21 @@
                 <input type="text" name="division" id="division" class="form-control" value="{{team.division}}">
 
                 <br>
-                <input type="submit" class="form-control" value="Update">
+                <input type="submit" class="btn btn-outline-primary form-control" value="Update"><br><br>
+                <input type="button" class="btn btn-outline-danger form-control" value="Delete" onclick="return confirmdelete({{team.id}})">
+                <p>&nbsp;</p>
+                <input type="button" class="btn btn-outline-success form-control" value="add-win" onclick="window.location.href = '/team/{{team.id}}/add-win';">
             </div>            
         </form>
     </div>
+    <script>
+        function confirmdelete(teamid) {
+            deleteconfirmed = confirm('Er du sikkert på at du vil slette?');
+            if (deleteconfirmed == true) {
+                window.location.href = '/teams/' + teamid + '/delete';
+            }else{
+                return false;
+            }
+        }
+    </script>
 {% endblock %}

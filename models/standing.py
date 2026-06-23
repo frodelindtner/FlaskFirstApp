@@ -14,3 +14,8 @@ class Standing:
     @property
     def get_division(self):
         return str(self.division)
+    
+    def to_json(self):
+        return {'season': self.season, 'season_type': self.season_type, 'team_id': self.team_id, 'city': self.city,
+                'name': self.name, 'league': self.league, 'division': self.division, 'wins': self.wins, 'losses': self.losses,
+                'night_wins': self.night_wins}
