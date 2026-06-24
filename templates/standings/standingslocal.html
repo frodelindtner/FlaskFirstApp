@@ -4,8 +4,8 @@
         <p>filter league: {{selected_league}}</p>
     {% else %}
         <h5>Vælg filter</h5>
-        {% for filter in filter_options%}       
-            | <a href="/standings-local/{{filter}}">{{filter}}</a>
+        {% for f in filter_options%}       
+            | <a href="/standings-local/{{f}}">{{f}}</a>
         {% endfor %}
     {% endif %}
     <table class="table">
@@ -13,10 +13,9 @@
         <tr>
         <th scope="col">Sæson</th>
         <th scope="col">Navn</th>
+        <th scope="col">By</th>
         <th scope="col">Liga</th>
-        {% if not selected_league %}
-            <th scope="col">Handling</th>
-        {% endif %}
+        <th scope="col">Handling</th>
         <th scope="col">Sejre</th>
         <th scope="col">Nederlag</th>
         <th scope="col">Resulter</th>
@@ -27,9 +26,12 @@
         <tr>
             <td>{{s.season}}</td>
             <td><a href='/teams/{{s.team_id}}/edit'>{{s.name}}</a></td>
+            <td>{{s.city}}</td>
             <td>{{s.league}}</td>
             {% if not selected_league %}
                 <td><a href="/team/{{s.team_id}}/add-win">+sejre</a></td>
+            {% else %}
+                <td><a href="/team/{{s.team_id}}/add-win/{{selected_league}}">+sejre</a></td>            
             {% endif %}
             <td>{{s.wins}}</td>
             <td>{{s.losses}}</td>

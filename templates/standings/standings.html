@@ -11,9 +11,9 @@
         <p>filter division: {{filter_division.capitalize()}}</p>
     {% else %}
         {% if filter_league %}
-            <a href="?filter-division=central">Central</a> | 
-            <a href="?filter-division=east">East</a> | 
-            <a href="?filter-division=west">West</a>
+            | <a href="/standings/{{filter_league}}/central">Central</a> | 
+            <a href="/standings/{{filter_league}}/east">East</a> | 
+            <a href="/standings/{{filter_league}}/west">West</a>
         {% endif %}
     {% endif %}
     <table class="table">
@@ -21,6 +21,7 @@
         <tr>
         <th scope="col">Sæson</th>
         <th scope="col">Navn</th>
+        <th scope="col">By</th>
         <th scope="col">Liga</th>
         <th scope="col">Division</th>
         <th scope="col">Sejre</th>
@@ -28,28 +29,30 @@
         </tr>
     </thead>
     <tbody>
-    {% for standing in standings_dto %}
+    {% for s in standings %}
+
+        {% set display_row = False %}
+
         {% if filter_division %}
-            {% if filter_division == standing.division.lower() %}        
-            <tr>
-                <td>{{standing.season}}</td>
-                <td>{{standing.name}}</td>
-                <td>{{standing.league}}</td>
-                <td>{{standing.division}}</td>
-                <td>{{standing.wins}}</td>
-                <td>{{standing.losses}}</td>
-            </tr>    
+            {% if filter_division == s.division.lower() %}        
+                {% set display_row = True %}
             {% endif %}
         {% else %}
-        <tr>
-            <td>{{standing.season}}</td>
-            <td>{{standing.name}}</td>
-            <td>{{standing.league}}</td>
-            <td>{{standing.division}}</td>
-            <td>{{standing.wins}}</td>
-            <td>{{standing.losses}}</td>
-        </tr>    
+            {% set display_row = True %}
         {% endif %}
+        
+        {% if display_row == True %}
+            <tr>
+                <td>{{s.season}}</td>
+                <td>{{s.name}}</td>
+                <td>{{s.city}}</td>
+                <td>{{s.league}}</td>
+                <td>{{s.division}}</td>
+                <td>{{s.wins}}</td>
+                <td>{{s.losses}}</td>
+            </tr>
+        {% endif %}
+
     {% endfor %}
     </tbody>
     </table>     

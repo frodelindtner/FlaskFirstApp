@@ -29,6 +29,9 @@ class TeamService:
         self.__storage.delete_team(id)
 
     def create_filters(self):
+        """
+        Creating filter on the data in teams - league
+        """
         created_teams = self.get_all_teams()
         leagues = []
         for team in created_teams:

@@ -12,22 +12,22 @@
         </tr>
     </thead>
     <tbody>
-    {% for team in standing_list %}
+    {% for t in teams %}
         <tr>
-            <td><a href='teams/{{team.id}}/edit'>{{team.id}}</a></td>
-            <td>{{team.name}}</td>
-            <td>{{team.city}}</td>
-            <td>{{team.league}}</td>
-            <td>{{team.division}}</td>
+            <td><a href='teams/{{t.id}}/edit'>{{t.id}}</a></td>
+            <td>{{t.name}}</td>
+            <td>{{t.city}}</td>
+            <td>{{t.league}}</td>
+            <td>{{t.division}}</td>
         </tr>    
     {% endfor %}
     </tbody>
     </table>
     <p>&nbsp;</p>
-    <a href="teams/create">Opret et hold selv</a>
+    Kom igang og - <a href="teams/create">opret et hold selv</a>
     <br><br>
-    <a href="createteamsauto">Opret hold for mig!</a>
-
     <hr>
-    <a href="results">Se alle result poster</a>
+    <a href="createteamsauto">Opret 9 hold for mig - i forskellige liga'er</a>
+    <hr>
+    <a href="results">Se alle result poster - kun visning</a>
 {% endblock %}

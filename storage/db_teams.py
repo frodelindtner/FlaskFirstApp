@@ -10,6 +10,7 @@ class Storage_Team:
         cur.execute("SELECT * FROM Teams")
         teams = []
         for row in cur:
+            # print(f'Debug: The teams id values: {row[0]}')
             team_obj = Team(*row)
             teams.append(team_obj)
         cur.close()

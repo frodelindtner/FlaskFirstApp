@@ -10,10 +10,6 @@ class Standing:
         self.wins = wins
         self.losses = losses
         self.night_wins = night_wins
-
-    @property
-    def get_division(self):
-        return str(self.division)
     
     def to_json(self):
         return {'season': self.season, 'season_type': self.season_type, 'team_id': self.team_id, 'city': self.city,

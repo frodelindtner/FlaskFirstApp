@@ -8,7 +8,7 @@
                 <input type="number" name="id" id="id" class="form-control" readonly value="{{team.id}}">
 
                 <label for="season">Sæson:</label>
-                <input type="text" name="season" id="season" class="form-control" value="{{team.season}}">
+                <input type="number" name="season" id="season" class="form-control" value="{{team.season}}">
 
                 <label for="city">By:</label>
                 <input type="text" name="city" id="city" class="form-control" value="{{team.city}}">
@@ -17,8 +17,12 @@
                 <input type="text" name="name" id="name" class="form-control" value="{{team.name}}">
 
                 <label for="league">Liga:</label>
-                <input type="text" name="league" id="league" class="form-control" value="{{team.league}}">
-
+                <select name="league" id="league" class="form-control">
+                    <option value="Vest" {% if team.league == 'Vest' %}selected{% endif %}>Vest</option>
+                    <option value="Central" {% if team.league == 'Central' %}selected{% endif %}>Central</option>
+                    <option value="Øst" {% if team.league == 'Øst' %}selected{% endif %}>Øst</option>
+                </select>
+                
                 <label for="division">Division:</label>
                 <input type="text" name="division" id="division" class="form-control" value="{{team.division}}">
 

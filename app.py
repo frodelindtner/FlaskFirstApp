@@ -32,8 +32,8 @@ def create_teams_auto():
 
 @app.route('/teams')
 def teams():
-    return render_template('teams/teams.html', title = 'Dansk liga', 
-                           standing_list = team_service.get_all_teams())
+    return render_template('teams/teams.html', title = 'Lokal liga', 
+                           teams = team_service.get_all_teams())
 
 @app.route('/teams/create', methods=['GET', 'POST'])
 def create_team():
@@ -62,9 +62,13 @@ def delete_team(id):
     return redirect(url_for("teams"))    
 
 @app.route('/team/<int:id>/add-win')
-def add_win_team(id):
+@app.route('/team/<int:id>/add-win/<selected_filter>')
+def add_win_team(id, selected_filter = None):
     result_service.add_win_team(id)
-    return redirect(url_for("standingslocal"))
+    if selected_filter != None:
+        return redirect(url_for("standingslocal") + "/" + selected_filter)
+    else:
+        return redirect(url_for("standingslocal"))
 #------------------------------------------------------------------------------------------------------------------------------
 # Results local league
 #------------------------------------------------------------------------------------------------------------------------------
@@ -81,42 +85,43 @@ def edit_result(teamid):
 @app.route('/results')
 def results():
     return render_template('results/results.html', title = 'Dansk liga resultater', 
-                           result_list = result_service.get_all_results())
+                           results = result_service.get_all_results())
 
 @app.route('/standings-local')
-def standingslocal():
-    return render_template('standings/standingslocal.html', title = 'Dansk liga', 
-                           standings = standing_service.get_stadings_local(team_service, result_service),
-                           filter_options = team_service.create_filters())
-
 @app.route('/standings-local/<league>')
-def standingslocal_with_filter(league):
-    return render_template('standings/standingslocal.html', title = 'Dansk liga med filter', 
-                           standings = standing_service.get_standing_local_filter_by_league(team_service, result_service, league),
-                           filter_options = team_service.create_filters(),
-                           selected_league = league)
+def standingslocal(league = None):
+    if league == None:
+        return render_template('standings/standingslocal.html', title = 'Dansk liga', 
+                               standings = standing_service.get_stadings_local(team_service, result_service),
+                               filter_options = team_service.create_filters())
+    else:
+        return render_template('standings/standingslocal.html', title = 'Dansk liga med filter', 
+                               standings = standing_service.get_standings_local_filter_by_league(team_service, result_service, league),
+                               filter_options = team_service.create_filters(),
+                               selected_league = league)
+    
 #------------------------------------------------------------------------------------------------------------------------------
-# External league by API
+# External league by API - USA MLB
 #------------------------------------------------------------------------------------------------------------------------------
+
 @app.route('/standings')
-@app.route('/standings/') # look into why - https://stackoverflow.com/questions/40365390/trailing-slash-in-flask-route
-def standings():
-    return render_template('standings/standings.html', title = 'USA liga', 
-                           standings_dto = standing_service.get_stadings_us())
-
-# USA liga
+@app.route('/standings/') # https://stackoverflow.com/questions/40365390/trailing-slash-in-flask-route
 @app.route('/standings/<filter_league>')
-def standings_with_filter(filter_league):
-    filter_division_querystring = request.args.get('filter-division')
-
-    return render_template('standings/standings.html', title = 'USA liga med filter', 
-                           standings_dto = standing_service.get_standings_us_filter_by_league(filter_league),
-                           filter_league = filter_league,
-                           filter_division = filter_division_querystring)
+@app.route('/standings/<filter_league>/<filter_division>')
+def standings_with_filter(filter_league = None, filter_division = None):
+    if filter_league == None:
+        return render_template('standings/standings.html', title = 'USA liga', 
+                               standings = standing_service.get_stadings_us())        
+    else:
+        return render_template('standings/standings.html', title = 'USA liga med filter', 
+                               standings = standing_service.get_standings_us_filter_by_league(filter_league),
+                               filter_league = filter_league,
+                               filter_division = filter_division)    
 
 #------------------------------------------------------------------------------------------------------------------------------
 # Exposing local leage by endpoint
 #------------------------------------------------------------------------------------------------------------------------------
+
 @app.route('/api/standings', methods = ['GET'])
 def get_all_local_standings():
     customers = standing_service.get_all_local_standings_json(team_service, result_service)
