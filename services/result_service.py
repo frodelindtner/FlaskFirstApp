@@ -27,8 +27,7 @@ class ResultService:
         return r
 
     def update_result(self, id, teamid, wins, losses):
-        r = Result(teamid, wins, losses)
-        r.id = id
+        r = Result(id, teamid, wins, losses)
         self.__storage.update_result(r)
         return r
 

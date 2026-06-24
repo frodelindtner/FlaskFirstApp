@@ -17,7 +17,11 @@ class StandingsService:
             standing = Standing(team.season, 'N/A', team.id, team.city, team.name, team.league, team.division, 
                                    result.wins, result.losses,'N/A')
             standings.append(standing)
-            standings.sort(key=lambda x: int(x.wins), reverse=True)
+            # sort - no new copy
+            # sorted - creates copy
+            # standings.sort(key=lambda x: int(x.wins), reverse=True)
+            # with accounted for losses
+            standings.sort(key=lambda x: (int(x.wins), int(-x.losses)), reverse=True)
 
         return standings
     
