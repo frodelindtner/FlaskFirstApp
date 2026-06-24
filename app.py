@@ -86,7 +86,8 @@ def results():
 @app.route('/standings-local')
 def standingslocal():
     return render_template('standings/standingslocal.html', title = 'Dansk liga', 
-                           standings = standing_service.get_stadings_local(team_service, result_service))
+                           standings = standing_service.get_stadings_local(team_service, result_service),
+                           filter_options = team_service.create_filters())
 #------------------------------------------------------------------------------------------------------------------------------
 # External league by API
 #------------------------------------------------------------------------------------------------------------------------------

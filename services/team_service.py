@@ -28,6 +28,18 @@ class TeamService:
     def delete_team(self, id):
         self.__storage.delete_team(id)
 
+    def create_filters(self):
+        created_teams = self.get_all_teams()
+        divisions = []
+        leagues = []
+        for team in created_teams:
+            divisions.append(team.division)
+            leagues.append(team.league)
+        division_unique = list(set(divisions))
+        league_unique = list(set(leagues))
+        filters = (league_unique,division_unique)
+        return filters
+
     def create_some_objects(self, result_service):
         self.create_team(2026, 'Hørsholm', 'Hurricanes', 'ØST', '1 division', result_service)
         self.create_team(2026, 'Kokkedal', 'Pirats', 'ØST', '1 division', result_service)
