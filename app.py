@@ -60,14 +60,14 @@ def delete_team(id):
     team_service.delete_team(id)
     result_service.delete_result_by_teamid(id)
     return redirect(url_for("teams"))    
-#------------------------------------------------------------------------------------------------------------------------------
-# Results local league
-#------------------------------------------------------------------------------------------------------------------------------
+
 @app.route('/team/<int:id>/add-win')
 def add_win_team(id):
     result_service.add_win_team(id)
     return redirect(url_for("standingslocal"))
-
+#------------------------------------------------------------------------------------------------------------------------------
+# Results local league
+#------------------------------------------------------------------------------------------------------------------------------
 @app.route('/results/<int:teamid>/edit', methods=['GET','POST'])
 def edit_result(teamid):
     if request.method == "POST":

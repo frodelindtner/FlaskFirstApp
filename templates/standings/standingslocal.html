@@ -14,7 +14,6 @@
         <th scope="col">Sæson</th>
         <th scope="col">Navn</th>
         <th scope="col">Liga</th>
-        <th scope="col">Division</th>
         {% if not selected_league %}
             <th scope="col">Handling</th>
         {% endif %}
@@ -29,7 +28,6 @@
             <td>{{s.season}}</td>
             <td><a href='/teams/{{s.team_id}}/edit'>{{s.name}}</a></td>
             <td>{{s.league}}</td>
-            <td>{{s.division}}</td>
             {% if not selected_league %}
                 <td><a href="/team/{{s.team_id}}/add-win">+sejre</a></td>
             {% endif %}

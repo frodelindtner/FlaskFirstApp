@@ -38,13 +38,14 @@ class TeamService:
         return league_unique
 
     def create_some_objects(self, result_service):
-        self.create_team(2026, 'Hørsholm', 'Hurricanes', 'ØST', '1 division', result_service)
-        self.create_team(2026, 'Kokkedal', 'Pirats', 'ØST', '1 division', result_service)
-        self.create_team(2026, 'Lyngby', 'Jokers', 'ØST', '1 division', result_service)
-        self.create_team(2026, 'Ballerup', 'Vandals', 'ØST', '1 division', result_service)
-        self.create_team(2026, 'Aarhus', 'Royals', 'VEST', '1 division', result_service)
-        self.create_team(2026, 'Odense', 'Wolwes', 'VEST', '1 division', result_service)
-        self.create_team(2026, 'Herning', 'Trolls', 'VEST', '1 division', result_service)
-        self.create_team(2026, 'Odense', 'Giants', 'VEST', '1 division', result_service)
+        self.create_team(2026, 'Hørsholm', 'Hurricanes', 'Øst', '1 division', result_service)
+        self.create_team(2026, 'Kokkedal', 'Pirats', 'Øst', '1 division', result_service)
+        self.create_team(2026, 'Lyngby', 'Jokers', 'Øst', '1 division', result_service)
+        self.create_team(2026, 'Ballerup', 'Vandals', 'Øst', '1 division', result_service)
+        self.create_team(2026, 'Odense', 'Wolwes', 'Central', '1 division', result_service)
+        self.create_team(2026, 'Odense', 'Giants', 'Central', '1 division', result_service)
+        self.create_team(2026, 'Øksendrup', 'Oysters', 'Central', '1 division', result_service)
+        self.create_team(2026, 'Aarhus', 'Royals', 'Vest', '1 division', result_service)
+        self.create_team(2026, 'Herning', 'Trolls', 'Vest', '1 division', result_service)
 
  
