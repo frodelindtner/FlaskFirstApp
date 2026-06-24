@@ -48,11 +48,11 @@ class StandingsService:
         """
         Filter USA API data
         """
-        standings_dto = self.get_stadings_us()
+        standings = self.get_stadings_us()
         filtered_list = []
-        for standing_dto in standings_dto:
-            if standing_dto.league == filter:
-                filtered_list.append(standing_dto)
+        for standing in standings:
+            if standing.league == filter:
+                filtered_list.append(standing)
 
         return filtered_list
  
