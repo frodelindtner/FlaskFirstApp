@@ -27,7 +27,9 @@
     Kom igang og - <a href="teams/create">opret et hold selv</a>
     <br><br>
     <hr>
-    <a href="createteamsauto">Opret 9 hold for mig - i forskellige liga'er</a>
-    <hr>
+    {% if teams|length < 5 %}
+        <a href="createteamsauto">Opret 9 hold for mig - i forskellige liga'er</a>
+        <hr>
+    {% endif %}
     <a href="results">Se alle result poster - kun visning</a>
 {% endblock %}
