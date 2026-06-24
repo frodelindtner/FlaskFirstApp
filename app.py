@@ -88,10 +88,18 @@ def standingslocal():
     return render_template('standings/standingslocal.html', title = 'Dansk liga', 
                            standings = standing_service.get_stadings_local(team_service, result_service),
                            filter_options = team_service.create_filters())
+
+@app.route('/standings-local/<league>')
+def standingslocal_with_filter(league):
+    return render_template('standings/standingslocal.html', title = 'Dansk liga med filter', 
+                           standings = standing_service.get_standing_local_filter_by_league(team_service, result_service, league),
+                           filter_options = team_service.create_filters(),
+                           selected_league = league)
 #------------------------------------------------------------------------------------------------------------------------------
 # External league by API
 #------------------------------------------------------------------------------------------------------------------------------
 @app.route('/standings')
+@app.route('/standings/') # look into why - https://stackoverflow.com/questions/40365390/trailing-slash-in-flask-route
 def standings():
     return render_template('standings/standings.html', title = 'USA liga', 
                            standings_dto = standing_service.get_stadings_us())

@@ -20,6 +20,13 @@ class StandingsService:
             standings.sort(key=lambda x: int(x.wins), reverse=True)
 
         return standings
+    
+    def get_standing_local_filter_by_league(self, team_service, result_service, filter) -> list[Standing]:
+        """
+        Filter local standing with league
+        """
+        standings = self.get_stadings_local(team_service, result_service)
+        return self.filter_standings(standings, filter)
 
     def get_stadings_us(self) -> list[Standing]:
         """
@@ -43,19 +50,21 @@ class StandingsService:
             standings_dto.append(standing_dto)
         return standings_dto
     
-
     def get_standings_us_filter_by_league(self, filter) -> list[Standing]:
         """
         Filter USA API data
         """
         standings = self.get_stadings_us()
-        filtered_list = []
-        for standing in standings:
-            if standing.league == filter:
-                filtered_list.append(standing)
-
-        return filtered_list
+        return self.filter_standings(standings, filter)
  
+    def filter_standings(self, standings, filter_value):
+        f_standings = []
+        for standing in standings:
+            if standing.league == filter_value:
+                f_standings.append(standing)
+
+        return f_standings
+
  # ----------------- JSON ---------------
 
     def get_all_local_standings_json(self, team_service, result_service):
