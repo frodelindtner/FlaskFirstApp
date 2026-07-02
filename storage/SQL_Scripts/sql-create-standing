@@ -17,3 +17,14 @@ CREATE TABLE Results(
 	FOREIGN KEY (TeamId) REFERENCES Teams(Id)
 );
 
+-----------------------
+
+CREATE VIEW StandingLocal AS
+SELECT Season, Name, League, Division, Wins, Losses
+FROM Teams
+INNER JOIN Results ON Teams.Id = Results.TeamId
+ORDER BY Wins DESC, Losses
+
+
+
+
