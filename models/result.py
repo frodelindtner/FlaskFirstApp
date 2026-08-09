@@ -28,8 +28,14 @@ class Result:
 
     @property
     def losses(self):
+        """
+        Getter for losses
+        """
         return self.__losses
 
     @losses.setter
     def losses(self, new_losses):
+        """
+        Setter for losses
+        """
         self.__losses = new_losses

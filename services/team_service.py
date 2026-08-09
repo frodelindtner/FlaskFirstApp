@@ -4,15 +4,24 @@ from models.team import Team
 class TeamService:
     def __init__(self):
         self.__storage = Storage_Team()
-  
+
     def get_all_teams(self):
+        """
+        Getting all teams from storage
+        """
         return self.__storage.get_all_teams()
 
     def get_team_by_id(self, id):
+        """
+        Getting team by id from storage
+        """
         team = self.__storage.get_team_by_id(id)
         return team
 
     def create_team(self, season, city, name, league, division, result_service):
+        """
+        Creating team and adding to storage
+        """
         t = Team(None, season, city, name, league, division)
         createdid = self.__storage.add_team(t)
 
@@ -21,11 +30,17 @@ class TeamService:
         return t
 
     def update_team(self, id, season, city, name, league, division):
+        """
+        Updating team in storage
+        """
         t = Team(id, season, city, name, league, division)
         self.__storage.update_team(t)
         return t
 
     def delete_team(self, id):
+        """
+        Deleting team from storage
+        """
         self.__storage.delete_team(id)
 
     def create_filters(self):
@@ -41,6 +56,9 @@ class TeamService:
         return league_unique
 
     def create_some_objects(self, result_service):
+        """
+        Creating some objects for testing
+        """
         self.create_team(2026, 'Hørsholm', 'Hurricanes', 'Øst', '1 division', result_service)
         self.create_team(2026, 'Kokkedal', 'Pirats', 'Øst', '1 division', result_service)
         self.create_team(2026, 'Lyngby', 'Jokers', 'Øst', '1 division', result_service)
