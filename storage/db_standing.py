@@ -11,7 +11,7 @@ class Storage_Result:
         standings = []
         for row in cur:
             # Season, Name, League, Division, Wins, Losses
-            standing_obj = Standing(row[0], 'N/A', 1, ))
+            standing_obj = Standing(row[0], 'N/A', 1, )
             standings.append(standing_obj)
         cur.close()
         return standings

@@ -35,7 +35,6 @@ class StandingsService:
         teams = team_service.get_all_teams()
         for team in teams:
             result = result_service.get_result_by_teamid(team.id)
-            print(f"team: {team.id} - result: {result.teamid}")
             standing = Standing(team.season, team.id, team.city, team.name, team.league, team.division, 
                                    result.teamid, result.wins, result.losses)
             print(f"standing: {standing.teamid}")
