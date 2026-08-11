@@ -16,15 +16,14 @@ class StandingsService:
 
         for sport_item in sports_data:
             standing = Standing(sport_item['Season'],
-                sport_item['SeasonType'],
                 sport_item['TeamID'],
                 sport_item['City'],
                 sport_item['Name'],
-                sport_item['League'],
+                sport_item['League'],                
                 sport_item['Division'],
+                sport_item['TeamID'],
                 sport_item['Wins'],
-                sport_item['Losses'],
-                sport_item['NightWins'])
+                sport_item['Losses'])
             standings.append(standing)
         return standings
 
@@ -36,8 +35,10 @@ class StandingsService:
         teams = team_service.get_all_teams()
         for team in teams:
             result = result_service.get_result_by_teamid(team.id)
-            standing = Standing(team.season, 'N/A', team.id, team.city, team.name, team.league, team.division, 
-                                   result.wins, result.losses,'N/A')
+            print(f"team: {team.id} - result: {result.teamid}")
+            standing = Standing(team.season, team.id, team.city, team.name, team.league, team.division, 
+                                   result.teamid, result.wins, result.losses)
+            print(f"standing: {standing.teamid}")
             standings.append(standing)
             # sort - no new copy
             # sorted - creates copy

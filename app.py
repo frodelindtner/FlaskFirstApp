@@ -64,6 +64,9 @@ def delete_team(id):
 @app.route('/team/<int:id>/add-win')
 @app.route('/team/<int:id>/add-win/<selected_filter>')
 def add_win_team(id, selected_filter = None):
+    """ 
+    Adds a win to the team with the given id 
+    """
     result_service.add_win_team(id)
     if selected_filter != None:
         return redirect(url_for("standingslocal") + "/" + selected_filter)
@@ -84,12 +87,18 @@ def edit_result(teamid):
     
 @app.route('/results')
 def results():
+    """
+    Showing results from local league
+    """
     return render_template('results/results.html', title = 'Dansk liga resultater', 
                            results = result_service.get_all_results())
 
 @app.route('/standings-local')
 @app.route('/standings-local/<league>')
 def standingslocal(league = None):
+    """
+    Showing local league standings with optional filter
+    """
     if league == None:
         return render_template('standings/standingslocal.html', title = 'Dansk liga', 
                                standings = standing_service.get_stadings_local(team_service, result_service),
@@ -109,6 +118,9 @@ def standingslocal(league = None):
 @app.route('/standings/<filter_league>')
 @app.route('/standings/<filter_league>/<filter_division>')
 def standings_with_filter(filter_league = None, filter_division = None):
+    """
+    Showing standings from USA API with optional filter
+    """
     if filter_league == None:
         return render_template('standings/standings.html', title = 'USA liga', 
                                standings = standing_service.get_stadings_us())        
@@ -124,6 +136,9 @@ def standings_with_filter(filter_league = None, filter_division = None):
 
 @app.route('/api/standings', methods = ['GET'])
 def get_all_local_standings():
+    """
+    Exposing local league standings as JSON
+    """
     customers = standing_service.get_all_local_standings_json(team_service, result_service)
     return customers
 
