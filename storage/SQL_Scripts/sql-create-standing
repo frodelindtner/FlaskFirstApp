@@ -17,6 +17,16 @@ CREATE TABLE Results(
 	FOREIGN KEY (TeamId) REFERENCES Teams(Id)
 );
 
+CREATE TABLE Players(
+	Id INTEGER PRIMARY KEY AUTOINCREMENT,
+	TeamId INTEGER NOT NULL,
+	FirstName VARCHAR(50),
+	LastName VARCHAR(50),
+	Position VARCHAR(30),
+	JerseyNumber INTEGER,
+	FOREIGN KEY (TeamId) REFERENCES Teams(Id)
+);
+
 -----------------------
 
 CREATE VIEW StandingLocal AS

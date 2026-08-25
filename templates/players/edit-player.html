@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="col-4">
+        <form action="#" method="post">
+            <div class="form-group">
+                <label for="id">Id:</label>
+                <input type="number" name="id" id="id" class="form-control" readonly value="{{player.id}}">
+
+                <label for="teamid">Hold:</label>
+                <select name="teamid" id="teamid" class="form-control" required>
+                    {% for team in teams %}
+                        <option value="{{team.id}}" {% if team.id == player.teamid %}selected{% endif %}>{{team.name}} ({{team.city}})</option>
+                    {% endfor %}
+                </select>
+
+                <label for="first_name">Fornavn:</label>
+                <input type="text" name="first_name" id="first_name" class="form-control" value="{{player.first_name}}" required>
+
+                <label for="last_name">Efternavn:</label>
+                <input type="text" name="last_name" id="last_name" class="form-control" value="{{player.last_name}}" required>
+
+                <label for="position">Position:</label>
+                <input type="text" name="position" id="position" class="form-control" value="{{player.position}}" required>
+
+                <label for="jersey_number">Trøje nummer:</label>
+                <input type="number" name="jersey_number" id="jersey_number" class="form-control" value="{{player.jersey_number}}" required>
+
+                <br>
+                <input type="submit" class="btn btn-outline-primary form-control" value="Update"><br><br>
+                <input type="button" class="btn btn-outline-danger form-control" value="Delete" onclick="return confirmdelete({{player.id}})">
+            </div>
+        </form>
+    </div>
+    <script>
+        function confirmdelete(playerid) {
+            deleteconfirmed = confirm('Er du sikkert på at du vil slette spilleren?');
+            if (deleteconfirmed == true) {
+                window.location.href = '/players/' + playerid + '/delete';
+            } else {
+                return false;
+            }
+        }
+    </script>
+{% endblock %}

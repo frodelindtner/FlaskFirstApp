@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <p>&nbsp;</p>
+    <table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Hold id</th>
+            <th>Fornavn</th>
+            <th>Efternavn</th>
+            <th>Position</th>
+            <th>Trøje nr.</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for p in players %}
+        <tr>
+            <td><a href='/players/{{p.id}}/edit'>{{p.id}}</a></td>
+            <td>{{p.teamid}}</td>
+            <td>{{p.first_name}}</td>
+            <td>{{p.last_name}}</td>
+            <td>{{p.position}}</td>
+            <td>{{p.jersey_number}}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    <p>&nbsp;</p>
+    Opret en ny spiller - <a href="/players/create">opret spiller</a>
+    <br><br>
+    <hr>
+    <a href="/teams">Gå tilbage til holdadministration</a>
+{% endblock %}

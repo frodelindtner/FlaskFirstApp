@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="col-4">
+        <form action="#" method="post">
+            <div class="form-group">
+                <label for="teamid">Hold:</label>
+                <select name="teamid" id="teamid" class="form-control" required>
+                    {% for team in teams %}
+                        <option value="{{team.id}}">{{team.name}} ({{team.city}})</option>
+                    {% endfor %}
+                </select>
+
+                <label for="first_name">Fornavn:</label>
+                <input type="text" name="first_name" id="first_name" class="form-control" value="John" required>
+
+                <label for="last_name">Efternavn:</label>
+                <input type="text" name="last_name" id="last_name" class="form-control" value="Doe" required>
+
+                <label for="position">Position:</label>
+                <input type="text" name="position" id="position" class="form-control" value="Pitcher" required>
+
+                <label for="jersey_number">Trøje nummer:</label>
+                <input type="number" name="jersey_number" id="jersey_number" class="form-control" value="10" required>
+
+                <br>
+                <input type="submit" class="form-control" value="Opret spiller">
+            </div>
+        </form>
+    </div>
+{% endblock %}

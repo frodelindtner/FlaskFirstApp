@@ -2,12 +2,14 @@ from flask import Flask, render_template, request, redirect, url_for
 from services.stadings_service import StandingsService
 from services.team_service import TeamService
 from services.result_service import ResultService
+from services.player_service import PlayerService
 
 app = Flask(__name__)
 
 team_service = TeamService()
 result_service = ResultService()
 standing_service = StandingsService()
+player_service = PlayerService()
 
 @app.route('/')
 @app.route('/home')
@@ -59,7 +61,49 @@ def edit_team(id):
 def delete_team(id):
     team_service.delete_team(id)
     result_service.delete_result_by_teamid(id)
-    return redirect(url_for("teams"))    
+    return redirect(url_for("teams"))
+
+@app.route('/players')
+def players():
+    return render_template('players/players.html', title = 'Spillere',
+                           players = player_service.get_all_players())
+
+@app.route('/players/create', methods=['GET', 'POST'])
+def create_player():
+    if request.method == "POST":
+        player_service.create_player(
+            int(request.form['teamid']),
+            request.form['first_name'],
+            request.form['last_name'],
+            request.form['position'],
+            int(request.form['jersey_number'])
+        )
+        return redirect(url_for("players"))
+    else:
+        return render_template('players/create-player.html', title = 'Opret spiller',
+                               teams = team_service.get_all_teams())
+
+@app.route('/players/<int:id>/edit', methods=['GET', 'POST'])
+def edit_player(id):
+    if request.method == "POST":
+        player_service.update_player(
+            id,
+            int(request.form['teamid']),
+            request.form['first_name'],
+            request.form['last_name'],
+            request.form['position'],
+            int(request.form['jersey_number'])
+        )
+        return redirect(url_for("players"))
+    else:
+        return render_template('players/edit-player.html', title = 'Rediger spiller',
+                               player = player_service.get_player_by_id(id),
+                               teams = team_service.get_all_teams())
+
+@app.route('/players/<int:id>/delete')
+def delete_player(id):
+    player_service.delete_player(id)
+    return redirect(url_for("players"))
 
 @app.route('/team/<int:id>/add-win')
 @app.route('/team/<int:id>/add-win/<selected_filter>')
@@ -105,7 +149,7 @@ def standingslocal(league = None):
                                filter_options = team_service.create_filters())
     else:
         return render_template('standings/standingslocal.html', title = 'Dansk liga med filter', 
-                               standings = standing_service.get_standings_local_filter_by_league(team_service, result_service, league),
+                               standings = standing_service.get_stadings_local_filter_by_league(team_service, result_service, league),
                                filter_options = team_service.create_filters(),
                                selected_league = league)
     
@@ -123,7 +167,7 @@ def standings_with_filter(filter_league = None, filter_division = None):
     """
     if filter_league == None:
         return render_template('standings/standings.html', title = 'USA liga', 
-                               standings = standing_service.get_stadings_us())        
+                               standings = standing_service.get_stadings_us())
     else:
         return render_template('standings/standings.html', title = 'USA liga med filter', 
                                standings = standing_service.get_standings_us_filter_by_league(filter_league),
