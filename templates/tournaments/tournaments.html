@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <p>&nbsp;</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Turnering</th>
+                <th>Sæson</th>
+                <th>Format</th>
+                <th>Hold</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tournament in tournaments %}
+                <tr>
+                    <td><a href="/tournaments/{{ tournament.id }}/edit">{{ tournament.id }}</a></td>
+                    <td>{{ tournament.name }}</td>
+                    <td>{{ tournament.season }}</td>
+                    <td>{{ tournament.format }}</td>
+                    <td>{{ tournament_teams_count.get(tournament.id, 0) }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p>&nbsp;</p>
+    <a href="/tournaments/create" class="btn btn-primary">Opret turnering</a>
+{% endblock %}

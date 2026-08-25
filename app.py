@@ -3,6 +3,7 @@ from services.stadings_service import StandingsService
 from services.team_service import TeamService
 from services.result_service import ResultService
 from services.player_service import PlayerService
+from services.tournament_service import TournamentService
 
 app = Flask(__name__)
 
@@ -10,6 +11,7 @@ team_service = TeamService()
 result_service = ResultService()
 standing_service = StandingsService()
 player_service = PlayerService()
+tournament_service = TournamentService()
 
 @app.route('/')
 @app.route('/home')
@@ -185,6 +187,82 @@ def get_all_local_standings():
     """
     customers = standing_service.get_all_local_standings_json(team_service, result_service)
     return customers
+
+#------------------------------------------------------------------------------------------------------------------------------
+# Tournament management
+#------------------------------------------------------------------------------------------------------------------------------
+
+@app.route('/tournaments')
+def tournaments():
+    tournament_teams_count = {}
+    for tournament in tournament_service.get_all_tournaments():
+        tournament_teams_count[tournament.id] = len(tournament_service.get_tournament_teams(tournament.id))
+    return render_template('tournaments/tournaments.html', title='Turneringer',
+                           tournaments=tournament_service.get_all_tournaments(),
+                           tournament_teams_count=tournament_teams_count)
+
+@app.route('/tournaments/create', methods=['GET', 'POST'])
+def create_tournament():
+    if request.method == 'POST':
+        tournament_service.create_tournament(
+            request.form['name'],
+            int(request.form['season']),
+            request.form['format']
+        )
+        return redirect(url_for('tournaments'))
+    return render_template('tournaments/create-tournament.html', title='Opret turnering')
+
+@app.route('/tournaments/<int:id>/edit', methods=['GET', 'POST'])
+def edit_tournament(id):
+    tournament = tournament_service.get_tournament_by_id(id)
+    if tournament is None:
+        return redirect(url_for('tournaments'))
+
+    if request.method == 'POST':
+        tournament_service.update_tournament(
+            id,
+            request.form['name'],
+            int(request.form['season']),
+            request.form['format']
+        )
+        return redirect(url_for('edit_tournament', id=id))
+
+    team_lookup = {team.id: team.name for team in team_service.get_all_teams()}
+    tournament_teams = []
+    for tournament_team in tournament_service.get_tournament_teams(id):
+        team = team_service.get_team_by_id(tournament_team.team_id)
+        if team is not None:
+            tournament_teams.append(team)
+
+    matches = tournament_service.get_tournament_matches(id)
+    return render_template('tournaments/edit-tournament.html', title='Rediger turnering',
+                           tournament=tournament,
+                           all_teams=team_service.get_all_teams(),
+                           tournament_teams=tournament_teams,
+                           matches=matches,
+                           team_lookup=team_lookup)
+
+@app.route('/tournaments/<int:id>/add-team', methods=['POST'])
+def add_team_to_tournament(id):
+    tournament_service.add_team_to_tournament(id, int(request.form['teamid']))
+    return redirect(url_for('edit_tournament', id=id))
+
+@app.route('/tournaments/<int:id>/remove-team/<int:teamid>')
+def remove_team_from_tournament(id, teamid):
+    tournament_service.remove_team_from_tournament(id, teamid)
+    return redirect(url_for('edit_tournament', id=id))
+
+@app.route('/tournaments/<int:id>/generate-schedule')
+def generate_tournament_schedule(id):
+    tournament_service.generate_schedule(id)
+    return redirect(url_for('edit_tournament', id=id))
+
+@app.route('/tournaments/<int:tournament_id>/matches/<int:match_id>/score', methods=['POST'])
+def update_tournament_match_score(tournament_id, match_id):
+    home_score = int(request.form.get('home_score', 0))
+    away_score = int(request.form.get('away_score', 0))
+    tournament_service.update_match_score(match_id, home_score, away_score)
+    return redirect(url_for('edit_tournament', id=tournament_id))
 
 if __name__=='__main__':
     app.run(debug = True)

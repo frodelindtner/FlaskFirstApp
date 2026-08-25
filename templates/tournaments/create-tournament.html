@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="col-5">
+        <form action="#" method="post">
+            <div class="form-group">
+                <label for="name">Turneringens navn:</label>
+                <input type="text" name="name" id="name" class="form-control" value="Sommerturnering" required>
+
+                <label for="season">Sæson:</label>
+                <input type="number" name="season" id="season" class="form-control" value="2026" required>
+
+                <label for="format">Format:</label>
+                <select name="format" id="format" class="form-control" required>
+                    <option value="Round robin">Round robin</option>
+                </select>
+
+                <br>
+                <input type="submit" class="btn btn-primary form-control" value="Opret turnering">
+            </div>
+        </form>
+    </div>
+{% endblock %}
